@@ -1,6 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
 import {Component} from 'react'
+import firebase from "firebase/app";
+import "firebase/functions";
+
+let firebaseConfig = {
+    apiKey: "AIzaSyAgbsgswZpDKQ3PbiubfLB5I4JACZSymGg",
+    authDomain: "roman-empire-power.firebaseapp.com",
+    projectId: "roman-empire-power",
+    storageBucket: "roman-empire-power.appspot.com",
+    messagingSenderId: "848202750164",
+    appId: "1:848202750164:web:f0b1f50322601e04028341",
+    measurementId: "G-VVBXH8Y8EY"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+let functions = firebase.functions()
+functions.useEmulator("localhost", 5002);
+// firebase.analytics();
+let testFunc = functions.httpsCallable('helloWorld')
+testFunc({name: "gjc"}).then((data) => {console.log(data)})
 
 
 interface StateInterface {

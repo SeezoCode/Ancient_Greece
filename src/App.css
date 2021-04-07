@@ -8,7 +8,7 @@ h2 {
 }
 
 p {
-  line-height: 1.2rem;
+  line-height: 1.5rem;
 }
 
 h1 {
@@ -23,9 +23,89 @@ img {
   margin-right: 4px;
 }
 
+.landingElem {
+  border: 1px solid #b7b7b7;
+  margin: 3px;
+  padding: 6px;
+  border-radius: 6px;
+  margin-top: 18px;
+}
+
+footer {
+  background-color: #282c34;
+  color: aliceblue;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.landingElems {
+  display: grid;
+  grid-template-columns: 33.33% 33.33% 33.33%;
+  /*grid-template-rows: auto;*/
+}
+
+.col-4 {
+  padding: 0 !important;
+  width: 33%;
+}
+.row {
+  margin: 0 !important;
+}
+
+.landingImages {
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
+  overflow-y: hidden;
+  border-radius: 6px;
+}
+
+
+.table {
+  /*border: 1px solid black;*/
+  /*border-collapse: collapse;*/
+  /*width: 100%;*/
+  margin-top: 50px;
+  padding: 6px;
+}
+
+tr {
+  border-top: 1px solid black;
+}
+
+td {
+  padding: 5px
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.test {
+  font-size: x-large;
+}
+
+.landingCol {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 300px;
+  text-align: center;
+}
+
+.landing {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.allInitialCards {
+  /*display: grid;*/
+  /*place-items: center;*/
+  /*text-align: center;*/
+}
+
+.navbar {
+  overflow-x: auto;
 }
 
 @media (prefers-reduced-motion: no-preference) {

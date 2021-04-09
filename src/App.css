@@ -1,5 +1,6 @@
 .App {
   /*text-align: center;*/
+  word-wrap: break-word;
 }
 
 h2 {
@@ -17,6 +18,16 @@ h1 {
 
 img {
   max-width: 100%;
+}
+
+.p {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.butn {
+  margin-left: 10px;
 }
 
 .nav-item {
@@ -38,6 +49,29 @@ footer {
   margin-top: 40px;
 }
 
+.person {
+  /*max-width: 1000px;*/
+}
+
+.pimg {
+  width: 100%;
+}
+
+#landingH1 {
+  margin-top: 25px;
+  margin-bottom: 30px;
+}
+
+.person-card {
+  padding-top: 18px;
+}
+
+input {
+  width: 100%;
+  text-align: left;
+  margin-top: 30px;
+}
+
 .landingElems {
   display: grid;
   grid-template-columns: 33.33% 33.33% 33.33%;
@@ -45,6 +79,7 @@ footer {
 }
 
 .col-4 {
+  margin-top: 50px;
   padding: 0 !important;
   width: 33%;
 }
@@ -60,12 +95,23 @@ footer {
   border-radius: 6px;
 }
 
+.landing {
+  max-width: 950px;
+  text-align: center;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.landingText {
+  padding-top: 5px;
+  padding-bottom: 8px;
+}
 
 .table {
   /*border: 1px solid black;*/
   /*border-collapse: collapse;*/
   /*width: 100%;*/
-  margin-top: 50px;
+  margin-top: 78px;
   padding: 6px;
 }
 

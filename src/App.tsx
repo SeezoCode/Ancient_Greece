@@ -1,8 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import {Component} from 'react'
 import firebase from "firebase/app";
 import "firebase/functions";
+import "firebase/firestore";
+// import HttpsCallableResult = firebase.functions.HttpsCallableResult;
+// import functions = firebase.functions;
 
 let firebaseConfig = {
     apiKey: "AIzaSyAgbsgswZpDKQ3PbiubfLB5I4JACZSymGg",
@@ -14,17 +16,27 @@ let firebaseConfig = {
     measurementId: "G-VVBXH8Y8EY"
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-let functions = firebase.functions()
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}else {
+    firebase.app(); // if already initialized, use that one
+}
+
+let functions = firebase.functions();
 functions.useEmulator("localhost", 5002);
 // firebase.analytics();
-let testFunc = functions.httpsCallable('helloWorld')
-testFunc({name: "gjc"}).then((data) => {console.log(data)})
+let upvote = functions.httpsCallable('helloWorld')
+let downvote = functions.httpsCallable('downvote')
+// let askQuestionFire = functions.httpsCallable('askQuestion')
+// testFunc({name: "gjc"}).then((data) => {console.log(data)})
+
+let firestore = firebase.firestore();
 
 
 interface StateInterface {
     current: number,
-    cache: Array<NavBarElemInterface>
+    cache: Array<NavBarElemInterface>,
+    question: string,
 }
 
 interface NavBarElemInterface {
@@ -41,11 +53,18 @@ interface landingInterface {
     key: number
 }
 
+interface People {
+    name: string,
+    reputation: number,
+    description: string,
+    img: string
+}
+
 let navBarElems = [
     {
-        text: 'Roman Empire',
+        text: 'Ancient Greece',
         type: 'landingPage',
-        dataAt: 'http://127.0.0.1:8080/roman_empire.json'
+        dataAt: 'gs://roman-empire-power.appspot.com/ancient_greece.json'
     },
     {
         text: 'History',
@@ -53,22 +72,40 @@ let navBarElems = [
         dataAt: 'http://127.0.0.1:8080/history.html'
     },
     {
-        text: 'Geography',
+        text: 'Politics and Society',
         type: 'html',
-        dataAt: 'http://127.0.0.1:8080/geography.html'
+        dataAt: 'http://127.0.0.1:8080/politics_and_society.html'
     },
     {
-        text: 'Philosophers',
-        type: 'json',
+        text: 'Philosophy',
+        type: 'philosophy',
         dataAt: 'http://127.0.0.1:8080/philosophers.json'
     },
 ]
 
 
-async function getDescription(link: string): Promise<string> {
+async function getDescription(link: string, type: string = ''): Promise<string> {
     let response = await fetch(link)
     return response.text()
 }
+
+
+async function getCollection(collection: string): Promise<firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>> {
+    let db = firestore.collection(collection).orderBy("reputation", 'desc').get()
+    return db
+}
+
+async function getProcessedCol(name: string) {
+    // let text = await firestore.collection(`data/${name}`).get()
+    let collection = await getCollection(name)
+    let arr = collection.docs.map(data => {
+        return data.data()
+    })
+    console.log(arr)
+    return arr
+}
+
+// getProcessedCol('people').then(data => console.log(data))
 
 
 class App extends Component {
@@ -79,6 +116,7 @@ class App extends Component {
         this.state = {
             current: 0,
             cache: navBarElems,
+            question: '',
         }
         this.fetchContentData = this.fetchContentData.bind(this)
         this.changeSection = this.changeSection.bind(this)
@@ -127,6 +165,7 @@ class App extends Component {
                 {/*<div className="container">*/}
                 {navBarElems[this.state.current].type === 'html' && this.renderSections()}
                 {navBarElems[this.state.current].type === 'landingPage' && this.landingPage()}
+                {navBarElems[this.state.current].type === 'philosophy' && <Philosophy />}
                 <Footer />
                 {/*{this.state.current === 0 && InitialCards(navBarElems)}*/}
                 {/*</div>*/}
@@ -149,8 +188,10 @@ function LandingElems(data: Array<landingInterface>, fetchContentData: any, chan
         // @ts-ignore
         array[i % 3][Math.floor(i / 3)] = <div className="col" key={i}>{LandingElem(data[i], fetchContentData, changeSection)}</div>
     }
-    console.log(array)
-    return <div className="row landing">
+    return <div className="row landing" id="landing">
+        <h1 id="landingH1">Ancient Greece</h1>
+        <p>Ancient Greece (Greek: Ἑλλάς, romanized: Hellás) was a civilization belonging to a period of Greek history
+            from the Greek Dark Ages of the 12th–9th centuries BC to the end of antiquity (c. AD 600).</p>
         <div className="col-4 landingCol">{array[0]}</div>
         <div className="col-4 landingCol">{array[1]}</div>
         <div className="col-4 landingCol">{array[2]}</div>
@@ -162,21 +203,121 @@ function LandingElem(data: landingInterface, fetchContentData: any, changeSectio
     return (
         <div className="landingElem">
             <img src={data.img} className="landingImages"/>
-            <h4>{data.heading}</h4>
-            <p>{data.description}</p>
-            <button className="btn btn-light" onMouseOver={() => fetchContentData(data.key)} onClick={() => changeSection(data.key)}>See more
-            </button>
+            <div className="landingText">
+                <h4>{data.heading}</h4>
+                <p>{data.description}</p>
+                <button className="btn btn-outline-dark" onMouseOver={() => fetchContentData(data.key)} onClick={() => changeSection(data.key)}>See more
+                </button>
+            </div>
         </div>
     )
 }
+
+
+
+let philosophyData: firebase.firestore.DocumentData[] = []
+
+class Philosophy extends Component<any, any>{
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            isReady: false
+        }
+    }
+
+    componentDidMount() {
+        if (!philosophyData.length) this.getData()
+        else this.changeStateToReady()
+    }
+
+    getData = async () => {
+        let dataArr = await getProcessedCol('people')
+        philosophyData = dataArr;
+        console.log(this.state)
+        console.log(philosophyData)
+        this.changeStateToReady()
+    }
+
+    changeStateToReady = () => {
+        this.setState({isReady: true})
+    }
+
+    changeUpvote(key: number, name: string) {
+        upvote({name: name}).then((data) => this.rest(data, key))
+    }
+
+    down(key: number, name: string) {
+        downvote({name: name}).then((data) => this.rest(data, key))
+    }
+
+    rest(data: any, key: number) {
+        philosophyData[key].reputation = data['data']
+        this.setState({
+            num: data.data,
+        })
+    }
+
+    createCards = (dataArr: any) => {
+        return dataArr.map((elem: any, key: number) => {
+            return (
+                <div className="person container">
+                    <div className="person-card landingElem">
+                        <div className='row container-md'>
+                            <div className="col-md-3">
+                                <img src={elem.img} className="pimg"/>
+                            </div>
+                            <div className="col-md-9">
+                                <h4>{elem.name}</h4>
+                                <span>Favor: {elem.reputation}
+                                    <button className='btn btn-outline-success butn' onClick={() => {this.changeUpvote(key, elem.name)}}>Upvote</button>
+                                    <button className='btn btn-outline-danger butn' onClick={() => {this.down(key, elem.name)}}>Downvote</button></span>
+                                <hr />
+                                {elem.description.map((par: string, i: number) => {
+                                    return (<p key={i}>{par}</p>)
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        })
+    }
+
+    render() {
+        if (this.state.isReady) {
+            let cards = this.createCards(philosophyData)
+            console.log(cards)
+            return (
+                // <p>rend</p>
+                // {cards}
+                <div>
+                    <h3 className="p">This list contains famous ancient Greeks ordered by upvotes</h3>
+                    {cards}
+                </div>
+            )
+        }
+        else return <p onClick={() => this.setState({ready: true})}>Loading</p>
+    }
+}
+
+
+// function Ask(ask: askQuestionType, change: askQuestionType) {
+//     return (
+//         <div className="questionAsker">
+//             <form onSubmit={ask} >
+//                 <input type="text" onChange={change} placeholder="What was Ancient Greece" className="input-group-text" />
+//             </form>
+//         </div>
+//     )
+// }
 
 
 function Footer() {
     return (
         <footer>
             <br />
-            <p>This is the footer</p>
             <br />
+            <p>This is the footer</p>
             <br />
         </footer>
     )

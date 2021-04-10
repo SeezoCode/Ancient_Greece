@@ -18,7 +18,7 @@
     "key": 3
   },
   {
-    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Plato_Silanion_Musei_Capitolini_MC1377.jpg/220px-Plato_Silanion_Musei_Capitolini_MC1377.jpg",
+    "img": "https://www.laphamsquarterly.org/sites/default/files/styles/tall_rectangle_custom_user_small_2x/public/images/contributor/plato_360x450.jpg?itok=oC0U0lCq&timestamp=1414179137",
     "heading": "Plato",
     "description": "Pivotal figure in the history of Ancient Greek and Western philosophy",
     "key": 3
@@ -63,7 +63,11 @@
     "heading": "Zeno of Citium",
     "description": "Founder of the Stoic school of philosophy",
     "key": 3
+  },
+  {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Jean-Léon_Gérôme_-_Diogenes_-_Walters_37131.jpg/580px-Jean-Léon_Gérôme_-_Diogenes_-_Walters_37131.jpg",
+    "heading": "Diogenes",
+    "description": "Virtue of poverty",
+    "key": 3
   }
-
-
 ]

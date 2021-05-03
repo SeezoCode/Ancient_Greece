@@ -1,452 +1,232 @@
+import React from 'react';
 import './App.css';
-import {Component} from 'react'
+// import { Component } from 'react'
 import firebase from "firebase/app";
 import "firebase/functions";
 import "firebase/firestore";
 import "firebase/analytics";
-// import HttpsCallableResult = firebase.functions.HttpsCallableResult;
-// import functions = firebase.functions;
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+  useHistory
+} from "react-router-dom";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
+
+import { useState, useEffect, useLayoutEffect } from 'react';
+import {useCollection, useCollectionOnce} from "react-firebase-hooks/firestore";
 
 let firebaseConfig = {
-    apiKey: "AIzaSyAgbsgswZpDKQ3PbiubfLB5I4JACZSymGg",
-    authDomain: "roman-empire-power.firebaseapp.com",
-    projectId: "roman-empire-power",
-    storageBucket: "roman-empire-power.appspot.com",
-    messagingSenderId: "848202750164",
-    appId: "1:848202750164:web:f0b1f50322601e04028341",
-    measurementId: "G-VVBXH8Y8EY"
+  apiKey: "AIzaSyC5PG2D5YTNNr8j6Ca7BLI8Mt9TeH3e13c",
+  authDomain: "roman-empire-power.firebaseapp.com",
+  projectId: "roman-empire-power",
+  storageBucket: "roman-empire-power.appspot.com",
+  messagingSenderId: "848202750164",
+  appId: "1:848202750164:web:f0b1f50322601e04028341",
+  measurementId: "G-VVBXH8Y8EY"
 };
 
 
 if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig)
-        .functions('europe-west1')
+  firebase.initializeApp(firebaseConfig)
+      .functions('europe-west1')
 } else {
-    firebase.app()
-    // .functions('europe-west1')
-
+  firebase.app()
 }
 
-let functions = firebase.app().functions('europe-west1');
+// let functions = firebase.app().functions('europe-west1');
 // functions.useEmulator("localhost", 5002);
-
-let anal = firebase.analytics();
-let upvote = functions.httpsCallable('helloWorld')
-let downvote = functions.httpsCallable('downvote')
-// let askQuestionFire = functions.httpsCallable('askQuestion')
-// testFunc({name: "gjc"}).then((data) => {console.log(data)})
-
-let firestore = firebase.firestore();
+//
+// let upvote = functions.httpsCallable('helloWorld')
+// let downvote = functions.httpsCallable('downvote')
 
 
-interface StateInterface {
-    current: number,
-    cache: Array<NavBarElemInterface>,
-    question: string,
-}
 
-interface NavBarElemInterface {
-    text: string,
-    dataAt: string,
-    type: string,
-    savedData?: string,
-}
-
-interface landingInterface {
-    img: string,
-    heading: string,
-    description: string,
-    key: number
-}
-
-interface People {
-    name: string,
-    reputation: number,
-    description: string,
-    img: string
-}
-
-let navBarElems = [
-    {
-        text: 'Ancient Greece',
-        type: 'landingPage',
-        dataAt: 'ancient_greece'
-    },
-    {
-        text: 'History',
-        type: 'html',
-        dataAt: 'history'
-
-    },
-    {
-        text: 'Politics and Society',
-        type: 'html',
-        dataAt: 'politics_and_society'
-
-    },
-    {
-        text: 'Philosophy',
-        type: 'philosophy',
-        dataAt: 'philosophers'
-    },
-]
-
-let philosophyData: firebase.firestore.DocumentData[] = []
-
-
-async function getDescription(link: string, type: string = '') {
-    const docRef = firestore.doc(`data/${link}`);
-    const docSnapshot = await docRef.get();
-    return docSnapshot.data()
-    // let text = await firestore.collection(`data/${link}`).get()
-    // return text
-    // let response = await fetch(link)
-    // return response.text()
-}
-
-
-async function getCollection(collection: string): Promise<firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>> {
-    let db = firestore.collection(collection).orderBy("reputation", 'desc').get()
-    return db
-}
-
-async function getProcessedCol(name: string) {
-    let collection = await getCollection(name)
-    let arr = collection.docs.map(data => {
-        return data.data()
-    })
-    console.log(arr)
-    return arr
-}
-
-// getProcessedCol('people').then(data => console.log(data))
-
-
-class App extends Component {
-    state: StateInterface
-
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            current: 0,
-            cache: navBarElems,
-            question: '',
-        }
-        this.fetchContentData = this.fetchContentData.bind(this)
-        this.changeSection = this.changeSection.bind(this)
-    }
-
-    componentDidMount() {
-        this.fetchContentData(0)
-    }
-
-    fetchContentData(key: number) {
-        console.log(key, this.state)
-        let currentContext = this.state.cache[key]
-        if (navBarElems[key].type === 'philosophy') getPhilosophy().then()
-        if (currentContext.savedData) {
-            // this.setState({current: key})
-            console.log('from cache')
-        } else {
-            getDescription(currentContext.dataAt).then(data => {
-                console.log(data)
-                let cache = this.state
-                // @ts-ignore
-                cache.cache[key].savedData = data.data
-                this.setState(cache)
-            })
-        }
-    }
-
-    changeSection(key: number): void {
-        this.setState({current: key})
-    }
-
-    renderSections() {
-        let data = this.state.cache[this.state.current].savedData
-        if (data) return Section({__html: data})
-    }
-
-    landingPage = () => {
-        let data = this.state.cache[this.state.current].savedData
-        if (data) {
-            let parsed = JSON.parse(data)
-            // return LandingElems(parsed, this.fetchContentData, this.changeSection)
-            return <LandingElems2 data={parsed} fetchContentData={this.fetchContentData}
-                                  changeSection={this.changeSection}/>
-        }
-    }
-
-    render() {
-        return (
-            <div className="App">
-                <NavBar fetchContentData={this.fetchContentData} changeSection={this.changeSection}/>
-                {/*<div className="container">*/}
-                {navBarElems[this.state.current].type === 'html' && this.renderSections()}
-                {navBarElems[this.state.current].type === 'landingPage' && this.landingPage()}
-                {navBarElems[this.state.current].type === 'philosophy' && <Philosophy/>}
-                <Footer/>
-                {/*{this.state.current === 0 && InitialCards(navBarElems)}*/}
-                {/*</div>*/}
-            </div>
-        );
-    };
-}
-
-
-function Section(state: any) {
+function App() {
     return (
-        // @ts-ignore
-        <div dangerouslySetInnerHTML={state}/>
+        <div>
+            <Router>
+                <NavBar />
+                <Switch>
+                    <Route path="/ancient_greece" children={<LandingPage />} />
+                    {/*<Route path="/history" children={<GetComments />} />*/}
+                    {/*<Route path="/politics_and_society" children={<GetComments />} />*/}
+                    <Route path="/philosophy" children={<PhilosophyCards />} />
+                </Switch>
+            </Router>
+        </div>
+    );
+}
+
+
+function LandingPage(props: any) {
+    const [snapshot, loading, error] = useCollectionOnce(firebase.firestore().collection('people'));
+    if (snapshot) {
+        let arr: Array<Array<any>> = [[], [], []]
+        const elems = snapshot.docs.map((doc, i) => {
+            const data = doc.data()
+            return <LandingElem key={i} img={data.img} name={data.name} sd={data.sd} to={data.to} />
+        })
+
+        elems.forEach((elem, i) => {
+            arr[i % 3].push(elem)
+        })
+        return <div className='landingScreen'>
+            <div className='landingScreenText landingElements'>
+                <h1>Ancient Greece</h1>
+                <p id='landingInfo'>Ancient Greece (Greek: Ἑλλάς, romanized: Hellás) was a civilization belonging to a period of Greek
+                    history
+                    from the Greek Dark Ages of the 12th–9th centuries BC to the end of antiquity (c. AD 600).</p>
+            </div>
+            <div className="landingElements">
+                <div>{arr[0]}</div>
+                <div>{arr[1]}</div>
+                <div>{arr[2]}</div>
+            </div>
+        </div>
+        }
+    return (
+        <div>
+            {error && <p>{JSON.stringify(error)}</p>}
+            {/*{loading && <p>Loading</p>}*/}
+            {snapshot && <p>Loaded</p>}
+        </div>
     )
 }
 
-class LandingElems2 extends Component {
-    state: { width: number; };
-    props: any;
 
-    constructor(props: any) {
-        super(props);
-        this.state = {width: window.innerWidth}
-    }
+function LandingElem(props: any) {
+    const history = useHistory();
 
-    componentDidMount = () => {
-        let state = () => this.setState({width: window.innerWidth})
-        window.addEventListener('resize', (e) => {
-            state()
-        })
-    }
-
-    render() {
-        let array = [[], [], []]
-        let colAmount = this.state.width <= 923 ? 2 : 3
-        for (let i = 0; i < this.props.data.length; i++) {
-            // @ts-ignore
-            array[i % colAmount][Math.floor(i / colAmount)] =
-                <div className="col"
-                     key={i}>{LandingElem(this.props.data[i], this.props.fetchContentData, this.props.changeSection)}</div>
-        }
-        return <div className="row landing" id="landing">
-            <h1 id="landingH1">Ancient Greece</h1>
-            <p>Ancient Greece (Greek: Ἑλλάς, romanized: Hellás) was a civilization belonging to a period of Greek
-                history
-                from the Greek Dark Ages of the 12th–9th centuries BC to the end of antiquity (c. AD 600).</p>
-            <div className='row'>
-                <div className="landingCol">{array[0]}</div>
-                <div className="landingCol">{array[1]}</div>
-                <div className="landingCol">{array[2]}</div>
-            </div>
-        </div>
-    }
-}
-
-
-function LandingElem(data: landingInterface, fetchContentData: any, changeSection: any) {
     return (
-        <div className="landingElem">
-            <img src={data.img} className="landingImages"/>
+        <div className="landingElem" onClick={() => {history.push(props.to)}}>
+            <img src={props.img} className="landingImages"/>
             <div className="landingText">
-                <h4>{data.heading}</h4>
-                <p>{data.description}</p>
-                <button className="btn btn-outline-dark" onMouseOver={() => fetchContentData(data.key)}
-                        onClick={() => {
-                            changeSection(data.key)
-                            anal.logEvent(`Card Click ${data.heading}`)
-                        }}>See more
-                </button>
+                <h3>{props.name}</h3>
+                <p>{props.sd}</p>
+                {/*<button className="btn btn-outline-dark">See more</button>*/}
             </div>
         </div>
     )
 }
 
-async function getPhilosophy() {
-    let dataArr = await getProcessedCol('people')
-    philosophyData = dataArr;
-}
 
-class Philosophy extends Component<any, any> {
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            isReady: false
-        }
-        philosophyData.sort((a, b) => {
-            return a.reputation < b.reputation ? 1 : -1;
-        })
-    }
-
-    componentDidMount() {
-        if (!philosophyData.length) this.getData()
-        else this.changeStateToReady()
-    }
-
-    getData = async () => {
-        await getPhilosophy()
-        this.changeStateToReady()
-    }
-
-    changeStateToReady = () => {
-        this.setState({isReady: true})
-    }
-
-    spinning = (key: number, vote: string) => {
-        let old = philosophyData[key].reputation
-        setTimeout(() => {
-            let limit = vote === 'upvote' ? philosophyData[key].upvoteLimit : philosophyData[key].downvoteLimit
-            if (philosophyData[key].reputation === old && limit) {
-                philosophyData[key].reputation = <i className="fas fa-circle-notch fa-spin"> </i>
-                this.setState({num: null})
-            }
-        }, 500)
-    }
-
-    changeUpvote(key: number, name: string) {
-        this.spinning(key, 'upvote')
-        if (philosophyData[key].upvoteLimit == null) philosophyData[key].upvoteLimit = 16
-        else philosophyData[key].upvoteLimit -= 1
-        if (philosophyData[key].upvoteLimit <= 0) {
-            alert(`You're too sweet for ${name}. So much so that he would get diabetes. \n\nMaybe... click this random link: https://youtu.be/dQw4w9WgXcQ`)
-            return
-        }
-        upvote({name: name}).then((data) => this.rest(data, key))
-    }
-
-    down(key: number, name: string) {
-        this.spinning(key, 'downvote')
-        if (philosophyData[key].downvoteLimit == null) philosophyData[key].downvoteLimit = 16
-        else philosophyData[key].downvoteLimit -= 1
-        if (philosophyData[key].downvoteLimit <= 0) {
-            alert(`Too much hate on ${name}. Please judge somebody else. \n\nMaybe... click this random link: https://youtu.be/dQw4w9WgXcQ`)
-            return
-        }
-        downvote({name: name}).then((data) => this.rest(data, key))
-    }
-
-    rest(data: any, key: number) {
-        philosophyData[key].reputation = data['data']
-        this.setState({
-            num: data.data,
-        })
-    }
-
-    createCards = (dataArr: any) => {
-        return dataArr.map((elem: any, key: number) => {
-            return (
-                <div className="person container" key={key}>
-                    <div className="person-card landingElem">
-                        <div className='row container-md c'>
-                            <div className="col-md-3">
-                                <img src={elem.img} className="pimg"/>
-                            </div>
-                            <div className="col-md-9">
-                                <h4>{elem.name}</h4>
-                                <span>Favor: {elem.reputation}
-                                    <button className='btn btn-outline-success butn' onClick={() => {
-                                        this.changeUpvote(key, elem.name)
-                                    }}><i
-                                        className="fas fa-arrow-up"> </i></button>
-                                    <button className='btn btn-outline-danger butn' onClick={() => {
-                                        this.down(key, elem.name)
-                                    }}><i
-                                        className="fas fa-arrow-down"> </i></button></span>
-                                <hr/>
-                                {this.desc(elem.description, philosophyData[key].full, key)}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )
-        })
-    }
-
-    desc = (data: Array<string>, full: boolean, key: number) => {
-        if (full) {
-            return <div>{data.map((par: string, i: number) => {
-                return (<p className='phyCard' key={i}>{par}</p>)
-            })}
-                <button className='btn btn-link phyLink' onClick={() => {
-                    philosophyData[key].full = !philosophyData[key].full;
-                    this.forceUpdate();
-                }}>Compress
-                </button>
-            </div>
-        } else {
-            return <div>
-                <p className='phyCard'>{data[0].substring(0, 420)} ...</p>
-                <button className='btn btn-link phyLink' onClick={() => {
-                    philosophyData[key].full = !philosophyData[key].full;
-                    this.forceUpdate()
-                }}>Expand
-                </button>
-            </div>
-        }
-    }
-
-    render() {
-        if (this.state.isReady) {
-            let cards = this.createCards(philosophyData)
-            return (
-                // <p>rend</p>
-                // {cards}
-                <div>
-                    <h3 className="p">This list contains famous ancient Greeks ordered by upvotes</h3>
-                    {cards}
-                </div>
-            )
-        } else return <p onClick={() => this.setState({ready: true})}>Loading</p>
-    }
-}
-
-
-// function Ask(ask: askQuestionType, change: askQuestionType) {
-//     return (
-//         <div className="questionAsker">
-//             <form onSubmit={ask} >
-//                 <input type="text" onChange={change} placeholder="What was Ancient Greece" className="input-group-text" />
-//             </form>
-//         </div>
-//     )
-// }
-
-
-function Footer() {
+function NavBar(props: any) {
     return (
-        <footer>
-            <br/>
-            <br/>
-            <p>This is the footer</p>
-            <br/>
-        </footer>
+        <div className='NavBar'>
+            <div className='navbarLinks'>
+                <Link className='navbarLink' to="/ancient_greece">Ancient Greece</Link>
+                <Link className='navbarLink' to="/history">History</Link>
+                <Link className='navbarLink' to="/politics_and_society">Politics and Society</Link>
+                <Link className='navbarLink' to="/philosophy">Philosophy</Link>
+            </div>
+        </div>
     )
 }
 
 
-class NavBar extends Component<any, any> {
-    buildSections() {
-        let lis = navBarElems.map((elem, key) => {
-            return <li key={key} className='nav-item'>
-                <button className='btn btn-dark' onMouseOver={() => this.props.fetchContentData(key)}
-                        onClick={() => {
-                            this.props.changeSection(key)
-                            anal.logEvent(`NavBar ${elem.text}`)
-                        }}>{elem.text}</button>
-            </li>
-        })
-        return <ul className="navbar-nav">{lis}</ul>
-    }
+function PhilosophyCards(props: any) {
+    const [snapshot, loading, error] = useCollection(firebase.firestore().collection('people')
+        .orderBy('reputation', 'desc'));
+    const [order, setOrder] = useState([] as any)
+    const [sorted, setSorted] = useState([] as any)
 
-    render() {
-        return (
-            <nav className="navbar navbar-expand navbar-dark bg-dark">
-                <div className="container">
-                    <div className="collapse navbar-collapse" id="navbarNav">
-                        {this.buildSections()}
-                    </div>
-                </div>
-            </nav>
-        );
-    }
+    // if (snapshot) {
+    useEffect(() => {
+        let arr: any = []
+        let arrSorted: any = []
+        if (snapshot) {
+            let d = snapshot.docs.map((doc, i) => {
+                const data = doc.data()
+                arr[i] = data.name
+                return data
+            })
+            if (!order.length) setOrder(arr)
+            for (let i = 0; i < arr.length; i++) {
+                for (let j = 0; j < d.length; j++) {
+                    if (order[i] === d[j].name) {
+                        arrSorted[i] = <PhilosophyCard resize={true} img={d[j].img} name={d[j].name}
+                                                       description={d[j].description} reputation={d[j].reputation}
+                                                       key={i} pos={i}/>
+                        console.log(order[i], d[j].name)
+                    }
+                }
+            }
+            console.log(order, d)
+            console.log(arrSorted)
+            setSorted(arrSorted)
+        }
+    }, [snapshot, order])
+
+    window.addEventListener('scroll', (e) => console.log(window.scrollY));
+
+    return (
+        <div className='philosophyCards'>
+            {error && <strong>Error: {JSON.stringify(error)}</strong>}
+            {loading && <span>Collection: Loading...</span>}
+            {snapshot && <div className='philosophyCardsLoaded'>
+                <h1 className='PhilosophyText navbarLinks'> </h1>
+                {sorted}
+            </div>}
+        </div>
+    )
 }
+
+function PhilosophyCard(props: any) {
+    const [state, setState] = useState('auto');
+    const [description, setDescription] = useState(true);
+
+    function re() {
+        setTimeout(() => {
+            if (document?.getElementById(props.pos)?.clientHeight) {
+                const h = document.getElementById(props.pos)?.clientHeight
+                if (h) setState(h - 40 + 'px')
+            }
+            else re()
+        }, 5)
+    }
+    if (description) re()
+    window.addEventListener('resize', () => re())
+    return (
+        <div className='philosophyCard' onClick={() => {
+            setDescription(!description)
+            description ? setState('auto') : re()
+        }
+        } >
+            <img id={props.pos} src={props.img} className="philosophyImg"/>
+            {/*// @ts-ignore*/}
+            <div className="philosophyCardText" style={{height: state}}>
+                <h3>{props.name}</h3>
+                <span>Favor: {props.reputation}
+                    <button className='btn btnUp' onClick={(e) => {
+                        updateVote(props.name, props.reputation + 1)
+                        e.stopPropagation()
+                    }}><FontAwesomeIcon icon={faArrowUp} /></button>
+                    <button className='btn btnDown' onClick={(e) => {
+                        updateVote(props.name, props.reputation - 1)
+                        e.stopPropagation()
+                    }}><FontAwesomeIcon icon={faArrowDown} /></button>
+                </span>
+                <hr />
+                {props.description.map((e: string, i: number) => {
+                    return <p key={i}>{e}</p>
+                })}
+            </div>
+        </div>
+    )
+}
+
+function updateVote(name: string, targetRep: number) {
+    firebase.firestore().collection('people').doc(name).update({
+        reputation: targetRep
+    })
+}
+
+
 
 
 export default App;

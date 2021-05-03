@@ -1,207 +1,251 @@
-.App {
-  /*text-align: center;*/
-  word-wrap: break-word;
-}
 
-h2 {
-  margin-top: 50px;
-  margin-bottom: 5px;
-}
-
-p {
-  line-height: 1.5rem;
-}
-
-h1 {
-  margin-top: 30px;
-}
-
-img {
-  max-width: 100%;
-}
-
-.p {
-  margin-top: 25px;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.butn {
-  margin-left: 10px;
-}
-
-.nav-item {
-  margin-right: 4px;
+body {
+  line-height: 1.6em;
 }
 
 .landingElem {
-  border: 1px solid #b7b7b7;
-  margin: 3px;
   padding: 6px;
-  border-radius: 6px;
-  margin-top: 18px;
+  border-radius: 16px;
+  margin: 18px 6px 6px;
+  max-width: 300px;
+  line-height: 1.2em;
+
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 18px 0 rgba(170, 170, 170, 0.37);
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+
+  transition: .5s;
 }
 
-@media only screen and (max-width: 575px) {
-  .c {
-    padding: 0 !important;
-  }
+.landingElem:hover {
+  box-shadow: 0 8px 36px 0 rgba(102, 102, 102, 0.37);
+  border: 1px solid rgba(219, 219, 219, 0.18);
 }
 
-footer {
-  background-color: #282c34;
-  color: aliceblue;
-  text-align: center;
-  margin-top: 40px;
-}
-
-.person {
-  /*max-width: 1000px;*/
-}
-
-.pimg {
-  width: 100%;
-}
-
-#landingH1 {
-  margin-top: 25px;
-  margin-bottom: 30px;
-}
-
-.person-card {
-  padding-top: 18px;
-}
-
-input {
-  width: 100%;
-  text-align: left;
-  margin-top: 30px;
-}
-
-.landingElems {
+.landingElements {
   display: grid;
   grid-template-columns: 33.33% 33.33% 33.33%;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px;
+  width: 90%;
   /*grid-template-rows: auto;*/
-}
-
-.col-4 {
-  margin-top: 50px;
-  padding: 0 !important;
-  width: 33%;
-}
-.row {
-  margin: 0 !important;
 }
 
 .landingImages {
   width: 100%;
   max-width: 300px;
-  height: 100%;
-  overflow-y: hidden;
-  border-radius: 6px;
-}
-
-.landing {
-  max-width: 950px;
-  text-align: center;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  border-radius: 12px;
 }
 
 .landingText {
-  padding-top: 5px;
-  padding-bottom: 8px;
+  padding: 0px 12px 12px;
 }
 
-.table {
-  /*border: 1px solid black;*/
-  /*border-collapse: collapse;*/
-  /*width: 100%;*/
-  margin-top: 78px;
-  padding: 6px;
+.landingScreenText {
+  /*padding-left: 12px;*/
+  /*padding-right: 12px;*/
 }
 
-tr {
-  border-top: 1px solid black;
+#landingInfo {
+  grid-column: 2 / 5;
+  /*width: 200px;*/
 }
 
-td {
-  padding: 5px
+@media only screen and (max-width: 600px) {
+  .landingElements {
+    grid-template-columns: auto;
+    /*width: 400px;*/
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 0;
+
+  }
+  .landingElem {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .landingImages {
+    max-width: initial;
+  }
+  .landingScreenText {
+    max-width: initial !important
+  }
+  root {
+    max-width: 100%;
+  }
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  overflow-x: hidden;
+  margin-bottom: 200px;
 }
 
-.test {
-  font-size: x-large;
-}
 
-.landingCol {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 300px;
-  text-align: center;
-}
 
-.pimg {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  margin-bottom: 20px;
-}
+.NavBar {
+  background: rgba(241, 241, 241, 0.7);
+  box-shadow: 0 8px 8px 0 rgba(186, 186, 186, 0.37);
+  backdrop-filter: blur( 7.5px );
+  -webkit-backdrop-filter: blur( 7.5px );
+  /*border-radius: 10px;*/
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  margin: 0 !important;
 
-.landing {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.phyCard {
-  margin-bottom: 3px;
-  margin-top: 12px
-}
-
-.phyLink {
-  padding: 2px;
-}
-
-.allInitialCards {
-  /*display: grid;*/
-  /*place-items: center;*/
-  /*text-align: center;*/
-}
-
-.navbar {
   overflow-x: auto;
+  width: 100%;
+  z-index: 100;
+  position: fixed;
+  padding: 16px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.navbarLink {
+  margin-right: 16px;
+  text-decoration: none;
+  color: #2d2d2d;
+}
+
+.landingScreen {
+  padding-top: 70px;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbarLinks {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 990px;
+}
+
+
+
+
+
+
+.philosophyCard {
+  display: grid;
+  grid-template-columns: 300px auto;
+  max-width: 990px;
+  margin-left: auto;
+  margin-right: auto;
+
+  margin-top: 40px;
+  border-radius: 16px;
+  line-height: 1.2em;
+
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 18px 0 rgba(170, 170, 170, 0.37);
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+
+  transition: .5s;
+}
+
+.philosophyCard:hover {
+  box-shadow: 0 8px 36px 0 rgba(102, 102, 102, 0.37);
+  border: 1px solid rgba(219, 219, 219, 0.18);
+}
+
+.philosophyImg {
+  border-radius: 12px !important;
+  margin: 20px;
+  width: 100%;
+}
+
+.philosophyCardText {
+  /*height: 100%;*/
+  /*height: auto;*/
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 30px;
+  /*margin: 30px;*/
+  overflow-y: hidden;
+  max-height: content-box;
+}
+
+.philosophyCardText p {
+  cursor: pointer;
+}
+
+.PhilosophyText {
+  flex-grow : 1;
+  /*max-width: 990px;*/
+  /*width: 100vw;*/
+  margin: 0;
+  padding-top: 80px;
+}
+
+.btn {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  color: green;
+  background: 0;
+  padding: 10px 13px 10px 13px;
+  border: solid green 1px;
+  text-decoration: none;
+  margin-left: 6px;
+  transition: .25s;
+  margin-bottom: 6px;
+
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btnUp {
+  color: green;
+  border: solid green 1px;
+}
+.btnDown {
+  color: #ff0000;
+  border: solid #ff0000 1px;
+}
+
+.btnUp:hover {
+  background: green;
+  text-decoration: none;
+  color: white
+}
+
+.btnDown:hover {
+  background: #ff0000;
+  text-decoration: none;
+  color: white
+}
+
+.seeMoreButton {
+  border-radius: 28px;
+  color: #ffffff;
+  background: #2495e0;
+  padding: 10px 20px 10px 20px;
+  transition: .25s;
+}
+
+.seeMoreButton:hover {
+  background: #3cb0fd;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .philosophyCard {
+    grid-template-columns: auto;
+  }
+  .philosophyImg {
+    margin: auto;
+    margin-top: 16px;
+    width: 90%;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.placeholder {
+  height: 2000px;
 }

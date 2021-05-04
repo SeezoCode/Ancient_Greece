@@ -87,6 +87,8 @@ body {
 
 
 
+
+
 .NavBar {
   background: rgba(241, 241, 241, 0.7);
   box-shadow: 0 8px 8px 0 rgba(186, 186, 186, 0.37);
@@ -134,17 +136,43 @@ body {
   margin-left: auto;
   margin-right: auto;
 
-  margin-top: 40px;
   border-radius: 16px;
   line-height: 1.2em;
 
-  background: rgba( 255, 255, 255, 0.25 );
+  background: rgba( 255, 255, 255, 0.75 );
   box-shadow: 0 8px 18px 0 rgba(170, 170, 170, 0.37);
   backdrop-filter: blur( 4px );
   -webkit-backdrop-filter: blur( 4px );
   border: 1px solid rgba( 255, 255, 255, 0.18 );
 
+  overflow: auto;
+
   transition: .5s;
+  margin-top: 40px;
+  /*animation: .1s ease-out 0s 1 slideInFromLeft;*/
+}
+
+/*.philosophyCard2 {*/
+/*  max-height: 600px;*/
+/*  margin-top: 0;*/
+/*  width: 900px;*/
+/*  overflow-y: auto !important;*/
+/*}*/
+.philosophyCardText2 {
+  height: 100% !important;
+  overflow-y: scroll !important;
+  padding-bottom: 0;
+  padding-top: 0 !important;
+  /*margin-bottom: 100px;*/
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    margin-top: 50px;
+  }
+  100% {
+    margin-top: 40px;
+  }
 }
 
 .philosophyCard:hover {
@@ -170,7 +198,7 @@ body {
 }
 
 .philosophyCardText p {
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 
 .PhilosophyText {
@@ -232,9 +260,49 @@ body {
   text-decoration: none;
 }
 
+.philosophyCardName {
+  /*text-decoration: underline;*/
+  cursor: pointer;
+}
+
+.faExternalLinkAlt {
+  float: right;
+  float: top;
+  padding: 6px;
+  color: cornflowerblue;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 1500px) {
+  .philosophyCard {
+    /*grid-template-columns: auto;*/
+    width: calc(100vw - 16px);
+    overflow: hidden;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .philosophyCard {
+    /*grid-template-columns: auto;*/
+    width: calc(100vw - 16px);
+    /*width: 90% !important;*/
+    overflow: hidden;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .philosophyCard {
     grid-template-columns: auto;
+    width: calc(100vw - 16px) !important;
+    /*height: calc(100vh - 36px) !important;*/
+    /*max-height: 90em;*/
+    overflow: hidden;
+  }
+  .philosophyCardText {
+    height: 240px !important;
+  }
+  .philosophyCardSingleDiv .philosophyCardText {
+    height: auto !important;
   }
   .philosophyImg {
     margin: auto;
@@ -246,6 +314,15 @@ body {
 
 
 
-.placeholder {
-  height: 2000px;
+
+.menu {
+  /*width: 120px;*/
+  /*height: 100px;*/
+  box-shadow: 0 4px 5px 3px rgba(0, 0, 0, 0.2);
+  z-index: 120;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
 }
+

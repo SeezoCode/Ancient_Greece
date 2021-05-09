@@ -6,16 +6,13 @@ import {
   Switch,
   Route,
   Link,
-  useParams,
-  useLocation,
-  useHistory,
-    Redirect
 } from "react-router-dom";
 import {PhilosophyCardView} from './philosophy/philosophy_detail'
 import {PhilosophyCards} from './philosophy/philosophy'
 import {LandingPage} from './landing_page/landing_page'
 
 import firebaseConfig from "./fireconfig";
+import {HistoryTab} from "./history/history";
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
@@ -26,6 +23,8 @@ if (!firebase.apps.length) {
 
 
 
+
+
 function App() {
     return (
         <div>
@@ -33,7 +32,7 @@ function App() {
                 <NavBar />
                 <Switch>
                     <Route path="/ancient_greece" children={<LandingPage />} />
-                    {/*<Route path="/history" children={<GetComments />} />*/}
+                    <Route path="/history" children={<HistoryTab />} />
                     {/*<Route path="/politics_and_society" children={<GetComments />} />*/}
                     <Route exact path="/philosophy" children={<PhilosophyCards coll='people' />} />
                     <Route path="/philosophy/:philosopher" children={<PhilosophyCardView />} />
@@ -50,7 +49,7 @@ function App() {
 
 
 
-function NavBar(props: any) {
+function NavBar() {
     return (
         <div className='NavBar'>
             <div className='navbarLinks'>

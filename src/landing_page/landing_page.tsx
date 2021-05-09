@@ -4,6 +4,7 @@ import {useHistory} from "react-router-dom";
 import React from "react";
 
 import firebaseConfig from "../fireconfig";
+import Loading from "../loading/Loading";
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig)
@@ -12,9 +13,7 @@ if (!firebase.apps.length) {
     firebase.app()
 }
 
-const firestore = firebase.firestore()
-
-export function LandingPage(props: any) {
+export function LandingPage() {
     const [snapshot, loading, error] = useCollectionOnce(firebase.firestore().collection('people').orderBy('reputation', 'desc'));
     if (snapshot) {
         let arr: Array<Array<any>> = [[], [], []]
@@ -43,7 +42,7 @@ export function LandingPage(props: any) {
     return (
         <div>
             {error && <p>{JSON.stringify(error)}</p>}
-            {/*{loading && <p>Loading</p>}*/}
+            {loading && <div><br /><br /><br /> <Loading /> </div>}
             {snapshot && <p>Loaded</p>}
         </div>
     )
@@ -55,7 +54,7 @@ function LandingElem(props: any) {
 
     return (
         <div className="landingElem" onClick={() => {history.push(props.to)}}>
-            <img src={props.img} className="landingImages"/>
+            <img src={props.img} alt='' className="landingImages"/>
             <div className="landingText">
                 <h3>{props.name}</h3>
                 <p>{props.sd}</p>

@@ -19,6 +19,10 @@ body {
   transition: .5s;
 }
 
+.landingScreen {
+  animation: .3s ease-out 0s 1 opacityTransition;
+}
+
 .landingElem:hover {
   box-shadow: 0 8px 36px 0 rgba(102, 102, 102, 0.37);
   border: 1px solid rgba(219, 219, 219, 0.18);
@@ -31,7 +35,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   padding-top: 20px;
-  width: 90%;
+  /*width: 90%;*/
   /*grid-template-rows: auto;*/
 }
 
@@ -42,7 +46,7 @@ body {
 }
 
 .landingText {
-  padding: 0px 12px 12px;
+  padding: 0 12px 12px;
 }
 
 .landingScreenText {
@@ -92,8 +96,8 @@ body {
 .NavBar {
   background: rgba(241, 241, 241, 0.7);
   box-shadow: 0 8px 8px 0 rgba(186, 186, 186, 0.37);
-  backdrop-filter: blur( 7.5px );
-  -webkit-backdrop-filter: blur( 7.5px );
+  backdrop-filter: blur( 6px );
+  -webkit-backdrop-filter: blur( 6px );
   /*border-radius: 10px;*/
   border: 1px solid rgba( 255, 255, 255, 0.18 );
   margin: 0 !important;
@@ -122,6 +126,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   max-width: 990px;
+  /*padding-left: 20px;*/
 }
 
 
@@ -150,6 +155,20 @@ body {
   transition: .5s;
   margin-top: 40px;
   /*animation: .1s ease-out 0s 1 slideInFromLeft;*/
+
+  animation: .2s ease-out 0s 1 opacityTransition;
+}
+
+@keyframes opacityTransition2 {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /*.philosophyCard2 {*/
@@ -192,6 +211,7 @@ body {
   padding-left: 30px;
   padding-right: 30px;
   padding-top: 30px;
+  line-height: 1.6em;
   /*margin: 30px;*/
   overflow-y: hidden;
   max-height: content-box;
@@ -305,8 +325,7 @@ body {
     height: auto !important;
   }
   .philosophyImg {
-    margin: auto;
-    margin-top: 16px;
+    margin: 16px auto auto;
     width: 90%;
   }
 }
@@ -325,4 +344,569 @@ body {
   left: 50%;
   transform: translate(-50%, -50%)
 }
+
+
+
+
+.loading {
+  /*position: ;*/
+  text-align: center;
+
+  width: 200px;
+  opacity: 1;
+
+  margin: 30px auto;
+
+  border-radius: 16px;
+  line-height: 1.2em;
+
+  background: rgba( 255, 255, 255, 0.75 );
+  box-shadow: 0 8px 18px 0 rgba(170, 170, 170, 0.37);
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+
+  animation: .4s ease-out 0s 1 opacityTransitionLoading;
+}
+
+@keyframes opacityTransitionLoading {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes opacityTransition {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+
+
+
+#historyTabMargin {
+  padding-top: 80px;
+}
+.HistoryTabBody h1, p, h2, h3 {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.historyTabLandingText {
+  margin-bottom: 50px;
+  /*margin-bottom: 100px;*/
+}
+
+
+
+
+:root {
+  --scroll: .1;
+  --historyLandingImg: 0;
+  --firstSetOfParagraphs: 0;
+  --firstSetOfParagraphs2: 0;
+  --firstVideo: 0;
+
+  --peloponnesianWarH1: 0;
+  --peloponnesianWarP1: 0;
+  --peloponnesianWarP2: 0;
+  --peloponnesianWarP3: 0;
+  --peloponnesianWarImg: 0;
+
+  --historyH1: 0;
+  --historyH21: 0;
+  --historyP1: 0;
+  --historyH22: 0;
+  --historyP2: 0;
+  --historyH23: 0;
+  --historyP3: 0;
+  --historyH34: 0;
+  --historyP4: 0;
+
+  --slaveryH1: 0;
+  --slaveryP1: 0;
+  --slaveryP2: 0;
+
+  --end: 0;
+}
+
+
+/* copy paste example */
+#elemId {
+  animation: opacityTransition4 1s linear infinite;
+  animation-play-state: paused;
+  animation-delay: calc(var(--scroll) * -1s);
+
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+@keyframes elemTransition {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .4;
+  }
+}
+
+.historyLandingImg {
+  width: 100vw !important;
+  margin-bottom: 12vh;
+}
+#historyLandingImg {
+  transform: translateZ(0);
+
+  animation: opacityTransition4 1s ease infinite;
+  animation-play-state: paused;
+  animation-delay: calc(var(--historyLandingImg) * -1s);
+
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+@keyframes opacityTransition4 {
+  0% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+#firstSetOfParagraphs {
+  padding: 16px;
+  transform: translateZ(0);
+  animation: firstSetOfParagraphs 1s ease infinite;
+  animation-play-state: paused;
+  animation-delay: calc(var(--firstSetOfParagraphs) * -1s);
+
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+#firstSetOfParagraphs2 {
+  padding: 16px;
+  transform: translateZ(0);
+  animation: firstSetOfParagraphs 1s ease infinite;
+  animation-play-state: paused;
+  animation-delay: calc(var(--firstSetOfParagraphs2) * -1s);
+
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+@keyframes firstSetOfParagraphs {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(80px);
+    transform: translateY(80px)
+  }
+  20% {
+    opacity: 0;
+    -webkit-transform: translateY(80px);
+    transform: translateY(80px)
+  }
+  35% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+    -webkit-transform: translateY(30px);
+    transform: translateY(30px)
+  }
+  65% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0;
+    -webkit-transform: translateY(32px);
+    transform: translateY(32px)
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(32px);
+    transform: translateY(32px)
+  }
+}
+
+
+
+
+.firstVideoDiv {
+  transform: translateZ(0);
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#firstVideo {
+  transform: translateZ(0);
+  padding-top: 30rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+#firstVideo {
+  transform: translateZ(0);
+  opacity: 0;
+  max-width: 100vw;
+  /*max-width: 100vw;*/
+
+  animation: firstVideo 1s linear infinite;
+  animation-play-state: paused;
+  animation-delay: calc(var(--firstVideo) * -1s);
+
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+@keyframes firstVideo {
+ 30% {
+   opacity: 0;
+ }
+  45% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0;
+  }
+}
+
+
+/*.firstVideoSpace {*/
+/*  padding-bottom: 1080px;*/
+/*}*/
+/*#firstVideo {*/
+/*  position: absolute;*/
+/*  opacity: 0;*/
+/*  padding-top: 20vh;*/
+/*  left: 50%;*/
+/*  transform: translateY(-50%);*/
+/*  max-width: 100vw;*/
+/*  !*max-width: 100vw;*!*/
+
+/*  animation: firstVideo 1s linear infinite;*/
+/*  animation-play-state: paused;*/
+/*  animation-delay: calc(var(--firstVideo) * -1s);*/
+
+/*  animation-iteration-count: 1;*/
+/*  animation-fill-mode: both;*/
+/*}*/
+/*@keyframes firstVideo {*/
+/*  20% {*/
+/*    opacity: 0.4;*/
+/*    padding-top: 20vh;*/
+/*  }*/
+/*  30% {*/
+/*    opacity: 1;*/
+/*    padding-top: calc(36vh - 180px);*/
+/*  }*/
+/*  50% {*/
+/*    padding-top: calc(50vh - 180px);*/
+/*  }*/
+/*  70% {*/
+/*    padding-top: calc(75vh - 180px);*/
+/*  }*/
+/*  80% {*/
+/*    opacity: 1;*/
+/*  }*/
+/*  90% {*/
+/*    opacity: 0.4;*/
+/*    padding-top: calc(125vh - 180px);*/
+/*  }*/
+/*}*/
+
+
+
+#PeloponnesianWarDiv {
+  margin-top: 22rem;
+  display: grid;
+  grid-template-columns: auto auto;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media only screen and (max-width: 850px) {
+  #PeloponnesianWarDiv {
+    grid-template-columns: auto;
+  }
+  .peloponnesianWarImg {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center;
+    width: 100vw;
+  }
+}
+
+#PeloponnesianWarDiv p {
+  /*margin: 16px;*/
+}
+
+
+
+#peloponnesianWarH1 {
+  padding: 16px;
+  transform: translateZ(0);
+  animation: firstSetOfParagraphs 1s ease infinite;
+  animation-play-state: paused;
+  animation-delay: calc(var(--peloponnesianWarH1) * -1s);
+
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+
+#peloponnesianWarP1 {
+  padding: 16px;
+  transform: translateZ(0);
+  animation: firstSetOfParagraphs 1s ease infinite;
+  animation-play-state: paused;
+  animation-delay: calc(var(--peloponnesianWarP1) * -1s);
+
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+#peloponnesianWarP2 {
+  padding: 16px;
+  transform: translateZ(0);
+  animation: firstSetOfParagraphs 1s ease infinite;
+  animation-play-state: paused;
+  animation-delay: calc(var(--peloponnesianWarP2) * -1s);
+
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+#peloponnesianWarP3 {
+  padding: 16px;
+  transform: translateZ(0);
+  animation: firstSetOfParagraphs 1s ease infinite;
+  animation-play-state: paused;
+  animation-delay: calc(var(--peloponnesianWarP3) * -1s);
+
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+#peloponnesianWarImg {
+  transform: translateZ(0);
+  opacity: 0;
+  animation: peloponnesianWarImg 1s linear infinite;
+  animation-play-state: paused;
+  animation-delay: calc(var(--peloponnesianWarImg) * -1s);
+
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+.peloponnesianWarImg {
+  transform: translateZ(0);
+  width: available;
+}
+
+@keyframes peloponnesianWarImg {
+  20% {
+    opacity: 0;
+    -webkit-transform: translateY(2rem);
+    transform: translateY(2rem)
+  }
+  40% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(15rem);
+    transform: translateY(15rem)
+
+  }
+}
+
+
+
+
+.historyDiv {
+  margin-top: 30vh;
+}
+
+
+#historyH1, #historyH21, #historyP1, #historyH22, #historyP2, #historyH23, #historyP3, #historyH34, #historyP4 {
+  /*animation: firstSetOfParagraphs 1s linear infinite;*/
+  padding: 16px;
+  transform: translateY(30px);
+
+  animation-play-state: paused !important;
+  /*animation-delay: calc(var(--historyH1) * -1s);*/
+
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+
+#historyH1 {
+  transform: translateZ(0);
+  animation: HistoryAnim 1s ease infinite;
+  animation-delay: calc(var(--historyH1) * -1s);
+}
+#historyH21 {
+  transform: translateZ(0);
+  animation: HistoryAnim 1s ease infinite;
+  animation-delay: calc(var(--historyH21) * -1s);
+
+}
+#historyP1 {
+  transform: translateZ(0);
+  animation: HistoryAnim 1s ease infinite;
+  animation-delay: calc(var(--historyP1) * -1s);
+
+}
+#historyH22 {
+  transform: translateZ(0);
+  animation: HistoryAnim 1s ease infinite;
+  animation-delay: calc(var(--historyH22) * -1s);
+
+}
+#historyP2 {
+  transform: translateZ(0);
+  animation: HistoryAnim 1s ease infinite;
+  animation-delay: calc(var(--historyP2) * -1s);
+
+}
+#historyH23 {
+  transform: translateZ(0);
+  animation: HistoryAnim 1s ease infinite;
+  animation-delay: calc(var(--historyH23) * -1s);
+
+}
+#historyP3 {
+  transform: translateZ(0);
+  animation: HistoryAnim 1s ease infinite;
+  animation-delay: calc(var(--historyP3) * -1s);
+
+}
+#historyH34 {
+  transform: translateZ(0);
+  animation: HistoryAnim 1s ease infinite;
+  animation-delay: calc(var(--historyH34) * -1s);
+
+}
+#historyP4 {
+  transform: translateZ(0);
+  animation: HistoryAnim 1s ease infinite;
+  animation-delay: calc(var(--historyP4) * -1s);
+
+}
+
+
+@keyframes HistoryAnim {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(50px);
+    transform: translateY(50px)
+  }
+  10% {
+    opacity: 1;
+  }
+  35% {
+    -webkit-transform: translateY(30px);
+    transform: translateY(30px);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+  }
+  80% {
+    -webkit-transform: translateY(30px);
+    transform: translateY(30px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(25px);
+    transform: translateY(25px);
+    opacity: 0;
+  }
+}
+
+
+
+
+#slaveryH1, #slaveryP1, #slaveryP2 {
+  /*animation: firstSetOfParagraphs 1s linear infinite;*/
+  padding: 16px;
+  transform: translateY(30px);
+  animation-play-state: paused !important;
+  /*animation-delay: calc(var(--historyH1) * -1s);*/
+
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+#slaveryH1 {
+  transform: translateZ(0);
+  animation: HistoryAnim 1s ease infinite;
+  animation-delay: calc(var(--slaveryH1) * -1s);
+}
+#slaveryP1 {
+  transform: translateZ(0);
+  animation: HistoryAnim 1s ease infinite;
+  animation-delay: calc(var(--slaveryP1) * -1s);
+}
+#slaveryP2 {
+  transform: translateZ(0);
+  animation: HistoryAnim 1s ease infinite;
+  animation-delay: calc(var(--slaveryP2) * -1s);
+}
+.slavery {
+  transform: translateZ(0);
+  margin-top: 20vh;
+  margin-bottom: 45vh;
+}
+
+
+#end {
+  text-align: center;
+  margin-bottom: 45vh;
+
+  animation: endAnim 1s ease infinite;
+  animation-play-state: paused;
+  animation-delay: calc(var(--end) * -1s);
+
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+@keyframes endAnim {
+  0% {
+    opacity: 0;
+  }
+  35% {
+    opacity: .3;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 

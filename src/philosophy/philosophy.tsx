@@ -6,6 +6,7 @@ import {faArrowDown, faArrowUp, faExternalLinkAlt} from "@fortawesome/free-solid
 import firebase from "firebase";
 
 import firebaseConfig from "../fireconfig";
+import Loading from "../loading/Loading";
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig)
@@ -22,7 +23,6 @@ export function PhilosophyCards(props: { coll: string; }) {
         .orderBy('reputation', 'desc'));
     const [order, setOrder] = useState([] as any)
     const [sorted, setSorted] = useState([] as any)
-    const [overlay, setOverlay] = useState([] as any)
 
     useEffect(() => {
         if (!snapshot?.docs.length) return
@@ -34,7 +34,7 @@ export function PhilosophyCards(props: { coll: string; }) {
                 arr[i] = data.name
                 return data
             })
-            let ids = snapshot.docs.map((doc, i) => {
+            let ids = snapshot.docs.map((doc) => {
                 return doc.id
             })
             if (!order.length) setOrder(arr)
@@ -49,17 +49,16 @@ export function PhilosophyCards(props: { coll: string; }) {
             }
             setSorted(arrSorted)
         }
-    }, [snapshot, order])
+    }, [snapshot, order, props.coll])
 
     return (
         <div className='philosophyCards'>
+            <h1 className='PhilosophyText navbarLinks'> </h1>
             {error && <strong>Error: {JSON.stringify(error)}</strong>}
-            {loading && <span>Collection: Loading...</span>}
+            {loading && <Loading />}
             {snapshot && <div className='philosophyCardsLoaded'>
-                <h1 className='PhilosophyText navbarLinks'> </h1>
                 {sorted}
             </div>}
-            {overlay && <div className='philosophyCardsOverlay'>{overlay}</div>}
         </div>
     )
 }
@@ -68,7 +67,8 @@ export function PhilosophyCard(props: { pos: number; resize: any; img: string; n
     const history = useHistory();
     const [state, setState] = useState('auto');
     const [display, setDisplay] = useState('hidden');
-    const [voted, setVoted] = useState(10);
+    const [votedUp, setVotedUp] = useState(10);
+    const [votedDown, setVotedDown] = useState(10);
 
     function re() {
         setTimeout(() => {
@@ -96,7 +96,7 @@ export function PhilosophyCard(props: { pos: number; resize: any; img: string; n
         <div style={s} className='philosophyCard' onClick={() => {
             if (props.resize) history.push(`/philosophy/${props.name}`)}
         } >
-            <img id={props.pos.toString()} src={props.img} className="philosophyImg"/>
+            <img alt='' id={props.pos.toString()} src={props.img} className="philosophyImg"/>
             {/*// @ts-ignore*/}
             <div id={props.pos + 'div'} className="philosophyCardText" style={{height: state}}>
                 {props.resize &&
@@ -104,13 +104,15 @@ export function PhilosophyCard(props: { pos: number; resize: any; img: string; n
                 <h3 className='philosophyCardName'>{props.name}</h3>
                 <span>Favor: {props.reputation}
                     <button className='btn btnUp' onClick={(e) => {
-                        if (voted >= 0) updateVote(props.id ?? props.name, props.reputation + 1, props.col)
-                        setVoted(voted - 1)
+                        if (votedUp > 0) updateVote(props.id ?? props.name, props.reputation + 1, props.col)
+                        else alert(`You're too sweet for ${props.name}. So much so that he would get diabetes`)
+                        setVotedUp(votedUp - 1)
                         e.stopPropagation()
                     }}><FontAwesomeIcon icon={faArrowUp} /></button>
                     <button className='btn btnDown' onClick={(e) => {
-                        if (voted >= 0) updateVote(props.id ?? props.name, props.reputation - 1, props.col)
-                        setVoted(voted - 1)
+                        if (votedDown > 0) updateVote(props.id ?? props.name, props.reputation - 1, props.col)
+                        else alert(`Too much hate for ${props.name}`)
+                        setVotedDown(votedDown - 1)
                         e.stopPropagation()
                     }}><FontAwesomeIcon icon={faArrowDown} /></button>
                 </span>
@@ -127,5 +129,5 @@ export function PhilosophyCard(props: { pos: number; resize: any; img: string; n
 function updateVote(id: string, targetRep: number, collection: string = 'people') {
     firebase.firestore().collection(collection).doc(id).update({
         reputation: targetRep
-    })
+    }).then(() => console.log('received'))
 }

@@ -26,16 +26,17 @@ if (!firebase.apps.length) {
 
 
 function App() {
+    const [language, setLanguage] = React.useState('en')
     return (
         <div>
             <Router>
-                <NavBar />
+                <NavBar language={language} setLanguage={setLanguage} />
                 <Switch>
-                    <Route path="/ancient_greece" children={<LandingPage />} />
-                    <Route path="/history" children={<HistoryTab />} />
+                    <Route path="/ancient_greece" children={<LandingPage language={language} />} />
+                    <Route path="/history" children={<HistoryTab language={language} />} />
                     {/*<Route path="/politics_and_society" children={<GetComments />} />*/}
-                    <Route exact path="/philosophy" children={<PhilosophyCards coll='people' />} />
-                    <Route path="/philosophy/:philosopher" children={<PhilosophyCardView />} />
+                    <Route exact path="/philosophy" children={<PhilosophyCards coll='people' language={language} />} />
+                    <Route path="/philosophy/:philosopher" children={<PhilosophyCardView  language={language} />} />
                 </Switch>
             </Router>
         </div>
@@ -49,7 +50,8 @@ function App() {
 
 
 
-function NavBar() {
+function NavBar(props: { language: string; setLanguage: any}) {
+    const languages = ['en', 'cs', 'de', 'sk', 'pl', 'zh', 'fr', 'el', 'ru', 'es', 'ko']
     return (
         <div className='NavBar'>
             <div className='navbarLinks'>
@@ -57,6 +59,15 @@ function NavBar() {
                 <Link className='navbarLink' to="/history">History</Link>
                 <Link className='navbarLink' to="/politics_and_society">Politics and Society</Link>
                 <Link className='navbarLink' to="/philosophy">Philosophy</Link>
+
+                <form id='czechButton'>
+                    <label>Language: </label>
+                    <select onChange={(e) => props.setLanguage(e.target.value)} id='lanInput'>
+                        {languages.map((lan, i) => {
+                            return <option key={i} value={lan}>{lan === 'en' ? 'en (recommended)' : lan}</option>})
+                        }
+                    </select>
+                </form>
             </div>
         </div>
     )

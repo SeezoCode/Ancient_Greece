@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "roman-empire-power",
+  "private_key_id": "034bb2252014c944182fc3b6c617f10913aa75bb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC2xyV8ifxbAOBk\nKyBzbyEPaw50kihwJ4YESXugfy7MqYoqU7x3Zvyr7/33R1gMGl5eytwNkNUS8YsN\n641ze3I/zuLPtko3rcKQ0Q1UcxgzXpYJlB3pzG3R5B22Vq2NLrC6NIpTFpvT0gjW\nKnrYZKOEk/jDUivCzejxPs58NTPfllm7nVyoKJiq+uNpsTeGYPVLRw1S7vJuNlKs\nAjy7by9xFEwSRNlU+pLbqU/Xn6LnQ+Beh+W3Yw2xyoYkRVxyv4pizkZ44Bn8j87B\nfLEeYkBJWCzg2TYkVLZOyWtADWA1suwkj7g1oZ4oEHlraGYTtpkXR+q3F9W0VnwE\n7UVTyTBLAgMBAAECggEAKZA5twtNxof5fu3LsFRKCU6H9/wwk+h48kqfgUzKoKHB\nGIT4K5LQzGyDrRKdNAtfAGFTDwarXWZt/5lcDjG5NkdejmtejzDFONdBF74gd7X/\nmmgDMWJaastb8lXdm2hNqdo+xkwy3UU62zDHxKOGB6T6gbgS2XanjQyCOf6DMEmF\n6LpbqPTs5QWLrEx5lFIDiKh84PiU3owapKoWOnBFi6mTzuAIpwzHXfwLfD54p5jZ\njh2UM4yTuju99xwJDIeTpWwV0U4OBCWtNI5VX5QmNJXwRqYFBQGdcsvZKHY1Fcpj\nTCJkHG0Gv+M5lgXTBHpoYpthnurk9KqB5gGEJmvHYQKBgQD6aZyPZbw0r7QnPv2C\nUAJXlhCwf4XjvbLZET9zRTaKOYn3OsPD6aOJspYvQwlPJJJlPlr/i3XpZXY2ClMe\ntuin7WRni7F7E0tTs6bY4qLK6tXbdcxgk2tAZ4yz0SsWkVeKyQsNNUWQF+W2tF/1\nL2QePKAqt/B9Vmnq72ebviyZEQKBgQC62zJ9iDlFqeo4jbZE+frIDoB+F1uO9BvF\nCTfsgzdbeVigy0bBksFpEWEoX8iXTWC1ZKkoUiaP7+wTLKcewKfU7C9kxNEMS68h\nmwKPPyPduoK3K0gAB21yUr9jch/PGJLPty8eWmcqegRKnv6HWu1fv1RZHTBQa9Ac\nVdQX5qhTmwKBgGuCdkYWjqQsH3OOFrcg9LB37Dhqt6gcZLHPNuedepoDtBkh8LSn\nFaBjvRkTdea1s+ilydnXHUuUVRlEe4U/UEnwoN/X2N4XXYrVIbgSLYRjKGftfk6k\nXDKtgnodPpuU0Pnz8Lu9+Fyx9dzoOh6BN0HIE5fjmuuk8xp7qIb0Mh+RAoGAYFT/\na75eIG8gBHXywQ7LXnYzgk4Sctmgs200OqfPU0Z1Dbieys8ZDUzbdRAkfvRyZjH2\nD4aCwPQlFiGQKweRvvDg4iehyp/+MuoSYL1hhT9RgpM6tGEf6K+GYgOFKKR3k8TR\n8ukShNCRA9OCT0/uTs1589NbhCqBCQqqpIPSxf8CgYBrViwlNHPs4HWqjtDh9j42\n9j/0HIelT5NzOd3M1ALzduVpH8sEhgBapkh+hGi/HoL0Vt+oybJXPgUhpJ/htW1E\n7jLMxfaibaUqpg6JvgEnc5LfFFlvu+j+EKIAWp30w/XoLex5nDFuzmahYay0emJV\nfJ/2e9s91gZ6vgnmNh+zeg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "translateandfirestore@roman-empire-power.iam.gserviceaccount.com",
+  "client_id": "115943628545635613718",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/translateandfirestore%40roman-empire-power.iam.gserviceaccount.com"
+}

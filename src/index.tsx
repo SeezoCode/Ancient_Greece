@@ -12,15 +12,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// setInterval(() => {
-//     console.log('rrrre')
-//     ReactDOM.render(
-//         <React.StrictMode>
-//             <App />
-//         </React.StrictMode>,
-//         document.getElementById('root')
-//     );
-// }, 1000)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

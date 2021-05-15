@@ -18,7 +18,7 @@ if (!firebase.apps.length) {
 const firestore = firebase.firestore()
 
 
-export function PhilosophyCards(props: { coll: string; }) {
+export function PhilosophyCards(props: { coll: string; language: string }) {
     const [snapshot, loading, error] = useCollection(firestore.collection(props.coll).where('reputation', '<', Infinity)
         .orderBy('reputation', 'desc'));
     const [order, setOrder] = useState([] as any)
@@ -41,15 +41,16 @@ export function PhilosophyCards(props: { coll: string; }) {
             for (let i = 0; i < arr.length; i++) {
                 for (let j = 0; j < d.length; j++) {
                     if (order[i] === d[j].name) {
-                        arrSorted[i] = <PhilosophyCard resize={props.coll.split('/').length < 2} img={d[j].img} name={d[j].name}
-                                                       description={d[j].description} reputation={d[j].reputation}
-                                                       key={i} pos={i} col={props.coll} id={ids[j]} />
+                        arrSorted[i] = <PhilosophyCard resize={props.coll.split('/').length < 2} img={d[j].img}
+                                                       name={d[j].nameTrans[props.language] === d[j].name ? d[j].name : (d[j].nameTrans[props.language] + ' (' + d[j].name + ')') ?? d[j].name}
+                                                       description={d[j].allTrans[props.language] ?? d[j].description}
+                                                       reputation={d[j].reputation} key={i} pos={i} col={props.coll} id={ids[j]} />
                     }
                 }
             }
             setSorted(arrSorted)
         }
-    }, [snapshot, order, props.coll])
+    }, [snapshot, order, props.coll, props.language])
 
     return (
         <div className='philosophyCards'>
@@ -94,7 +95,7 @@ export function PhilosophyCard(props: { pos: number; resize: any; img: string; n
     }
     return (
         <div style={s} className='philosophyCard' onClick={() => {
-            if (props.resize) history.push(`/philosophy/${props.name}`)}
+            if (props.resize) history.push(`/philosophy/${props.id}`)}
         } >
             <img alt='' id={props.pos.toString()} src={props.img} className="philosophyImg"/>
             {/*// @ts-ignore*/}
@@ -127,7 +128,8 @@ export function PhilosophyCard(props: { pos: number; resize: any; img: string; n
 
 
 function updateVote(id: string, targetRep: number, collection: string = 'people') {
+    // console.log(id, targetRep, collection)
     firebase.firestore().collection(collection).doc(id).update({
         reputation: targetRep
-    }).then(() => console.log('received'))
+    }).then(() => console.log('done'))
 }

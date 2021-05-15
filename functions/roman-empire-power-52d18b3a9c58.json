@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "roman-empire-power",
+  "private_key_id": "52d18b3a9c580b7ed5873aa663c5f3c4ebde607f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCsiXvDjqSf6bcs\nJqzM32+QyO48plPLsn+V/bfWroeDn4v2tah1owdBRkxXHWeWzmBwPqM/esXc7pEM\ncAlCYW4SOK7LrmRaieqSC3q5SYbFDHk2K+PSzltBsfdpkXxzCCvc5NVbzCSd+mfJ\nspx09QCoc++CSgr8Pzi+/vq82+/Q3940m+lSiiZxIyiTH7rFY/tffwB+T4tlB2se\neIOIrZ/g9mn/E7hcbzF9GN1hOa1nQEfJmI6SL+rDrRoPRmgEwkqNVfYNB6u8rbvT\nG8htoUkRQ+NAjaor4ZjPJSea1E8qg5eiymQVz63W5NAPctOdc0DbE/1t0sTqOMZl\nejFGvG/nAgMBAAECggEAFNMLMxE2YW6uAxAv7xJQvuLhjkRs/Lrwl0PmOm0aQhKx\nq/dE+93PdFttv133MMZ78VA+F91ToFTTAPNMysxDosNgpYjI5/yZaUMlbtOnBoV4\n48bsWnc5oHZAbGd449FqqeCct9Wt3btpZ3i9VYh0qeBEWi9hoAxpZvQTg1PwX/9S\nZQ4Qd15G+WyJPK7h3TDQRimN80tSigjb32bjOM8APQkcecgiq2RB9H0EXJa0jJrb\nOAjp6J9EjbH+ISOv6ri2/b6wY4HXZrbFhXGItGPa7hjG7r7PsW/iq/efxzT4Uf59\nyAEyJH6MtPyy/Xhsyu6gAIoO+z4Pvxwy6bicIUBwoQKBgQDbV5PSVNn5ifqeSRwk\n1HZUywG4oJCeOTx3LA9stlE0mCgV5OdAgv0bHU4Yvl/wEfWopnDq5RwAdDmdeGc9\nslrpuW5310935hAgBuVy2fOo2fOEOVJGfVvtn1zdem7x0lbxIptShTWVm7AWmu4p\ndLoj0JPTKvN4kT+ydT6cciMuiQKBgQDJX2EbSAlsq36sCauaNfir/FGmeKn1vGpA\ngw2sOWatTlQzxiMA1F3p0SoV0WuZoCLy7nY4oXQQNbyBeNgC0xAiSRKZAD8hobol\nZyMrgYlFRkaQXdi6u6z0h0kKy6R9ax0O5ChEc4Q+DCrzgscAqCCE082pBYp46Ehv\nFAr5rnSO7wKBgQCe4nyYwpA2+6UIXas+Xozs9TTk+aJoistrBAaUWCjQsVtwKKT/\nDSOtLXgx4k16iHfr1805ygaTqZ1GnT4j6fuDDKihtNzC3GtX18cDgC/JYz/Lyv33\nQ72Ajozlfle5YgVKnSfoCch7/A/8//N/Iifn46IBOD6vWn/KlLVq/B7SCQKBgB5v\nROzroUkETlvQBliDSbcspmaDnCRguqpPZFSgRE1zJjTBAG9SqXL6QuMTSLDqS/3t\nXn7GoBUHGhtzWSpsHecgpifrqp75o3mdseoUZNvMeEO/e08VqFk4zShNiOnPs4+Z\nmiBmWRlLm348SLlnr6qDnHSsOrZ1XOU04UfFPyaPAoGAdt/EOeBSraxBGQ6kOkxL\n+gYEbKbQkOt3UrQt7zpJFTKGW+Q/kYQwmXqZ/W7BNZK/Sq68JdSEOc+5ioB0H+yB\npQ5Ku3B1v6v/umnrFoLH6TyszAzEwn8hrZC3dSReMoat/S6Sn3V3TB6iKrWcK1fb\nvl4GjzLh0TG1cMFSNa85Ujc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-z0rb3@roman-empire-power.iam.gserviceaccount.com",
+  "client_id": "104347399868630686609",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-z0rb3%40roman-empire-power.iam.gserviceaccount.com"
+}

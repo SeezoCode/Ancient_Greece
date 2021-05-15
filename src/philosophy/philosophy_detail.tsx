@@ -3,22 +3,16 @@ import {useDocument} from "react-firebase-hooks/firestore";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronCircleLeft} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import firebase from "firebase";
 import {PhilosophyCards, PhilosophyCard} from './philosophy'
 
-import firebaseConfig from "../fireconfig";
 import Loading from "../loading/Loading";
 
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig)
-        .functions('europe-west1')
-} else {
-    firebase.app()
-}
+import firebase from "firebase/app";
+import "firebase/firestore";
 
 const firestore = firebase.firestore()
 
-export function PhilosophyCardView() {
+export function PhilosophyCardView(props: {language: string}) {
     const location = useLocation()
     const pathName = location.pathname.split('/')[2]
     const [value, loading, error] = useDocument(firestore.doc(`people/${pathName}`))
@@ -30,10 +24,14 @@ export function PhilosophyCardView() {
                 <FontAwesomeIcon icon={faChevronCircleLeft} /> Back</Link>
             {error && <strong>Error: {JSON.stringify(error)}</strong>}
             {loading && <Loading />}
-            {data && <PhilosophyCard resize={false} img={data.img} name={data.name}
-                                     description={data.description} reputation={data.reputation} pos={0} />}
+            {data && <PhilosophyCard resize={false} img={data.img}
+                                     name={data.nameTrans[props.language] === data.name ? data.name : (data.nameTrans[props.language] + ' (' + data.name + ')') ?? data.name}
+                                     description={data.allTrans[props.language] ?? data.description}
+                                     reputation={data.reputation}
+                                     pos={0}
+                                        id={value?.id}/>}
             <hr style={{marginTop: '40px'}}/>
-            <PhilosophyCards coll={`people/${pathName}/details`} />
+            <PhilosophyCards coll={`people/${pathName}/details`} language={props.language} />
         </div>
     );
 }

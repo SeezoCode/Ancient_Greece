@@ -1,7 +1,3 @@
-See the page [here](https://roman-empire-power.web.app/ancient_greece)
-
-------------
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

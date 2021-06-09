@@ -20,7 +20,8 @@ export function LandingPage(props: { language: string }) {
             const data = doc.data()
             return <LandingElem key={i}
                                 img={data.img}
-                                name={data.nameTrans[props.language] === data.name ? data.name : (data.nameTrans[props.language] + ' (' + data.name + ')') ?? data.name}
+                                name={data.nameTrans[props.language] ? (data.nameTrans[props.language] === data.name ? data.name : (data.nameTrans[props.language]))
+                                    : data.name}
                                 sd={data.sdTrans[props.language] ?? data.sd}
                                 to={data.to} />
         })
@@ -37,6 +38,7 @@ export function LandingPage(props: { language: string }) {
                 <div>{arr[1]}</div>
                 <div>{arr[2]}</div>
             </div>
+            <div className="marginBottomDiv"> </div>
         </div>
     }
     return (
@@ -49,14 +51,14 @@ export function LandingPage(props: { language: string }) {
 }
 
 
-function LandingElem(props: any) {
+export function LandingElem(props: any) {
     const history = useHistory();
 
     return (
         <div className="landingElem" onClick={() => {history.push(props.to)}}>
-            <img src={props.img} alt='' className="landingImages"/>
+            <img src={props.img} alt='' className="landingImages" height={props.height ? props.height : 'auto'}/>
             <div className="landingText">
-                <h3>{props.name} <FontAwesomeIcon className='faExternalLinkAlt2' icon={faExternalLinkAlt} /></h3>
+                <h3>{props.name} {props.to && <FontAwesomeIcon className='faExternalLinkAlt2' icon={faExternalLinkAlt} />}</h3>
                 <p>{props?.sd}</p>
                 {/*<button className="btn btn-outline-dark">See more</button>*/}
             </div>

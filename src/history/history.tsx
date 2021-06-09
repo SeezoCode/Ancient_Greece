@@ -9,19 +9,17 @@ const firestore = firebase.firestore()
 
 
 export function HistoryTab(props: { language: string }) {
-    const [snapshot, loading, error] = useDocumentOnce(firestore.collection('data').doc('HistorySection'))
-    console.log(loading, error)
+    const [snapshot,] = useDocumentOnce(firestore.collection('data').doc('HistorySection'))
     const data = snapshot?.data()
     if (data) {
         const d = data[props.language] ?? data.data
         return (
             <div className='HistoryTabBody'>
-                <h1 className='PhilosophyText navbarLinks' id='historyTabMargin'> </h1>
-
-                <h1 className='historyTabLandingText'>{d[0]}</h1>
+                {/*<h1 className='PhilosophyText navbarLinks' id='historyTabMargin'> </h1>*/}
 
                 <AnimationHandler elId='historyLandingImg'>
-                    <img className='historyLandingImg' alt='nice pic' src="https://wallpaperaccess.com/full/1127822.jpg"/>
+                    {(window.innerWidth <= 1200) ? <img className='historyLandingImg' alt='nice pic' src="wallpaper1200.jpg"/>
+                        : <img className='historyLandingImg' alt='nice pic' src="wallpaper.jpg"/> }
                 </AnimationHandler>
 
                 <FirstSetOfParagraphs arr={d} />
@@ -36,6 +34,7 @@ export function HistoryTab(props: { language: string }) {
 
                 <AnimationHandler elId="end"><p>*End*</p></AnimationHandler>
 
+                <div className="marginBottomDiv"> </div>
             </div>
         )
     }
@@ -139,6 +138,10 @@ function getViewportVisibility(elId: string, setAnimAt: any, cssVar?: string) {
 function FirstSetOfParagraphs(props: any) {
     return (
         <div>
+            <AnimationHandler elId='historyTabLandingTextAnim'>
+                <h1 className='historyTabLandingText'>{props.arr[0]}</h1>
+            </AnimationHandler>
+
             <AnimationHandler elId='firstSetOfParagraphs'>
                 <p className="firstSetOfParagraphs">{props.arr[1]}</p>
             </AnimationHandler>
@@ -174,7 +177,7 @@ function PeloponnesianWar(props: any) {
             </div>
             <div>
                 <AnimationHandler elId='peloponnesianWarImg'>
-                    <img className='peloponnesianWarImg' src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Pelopennesian_War%2C_Key_Actions_in_each_Phase%2C_431_-_404_B.C..JPG' alt='' />
+                    <img className='peloponnesianWarImg' src='Peloponnesian_War.jpg' alt='' />
                 </AnimationHandler>
             </div>
         </div>
@@ -185,15 +188,15 @@ function PeloponnesianWar(props: any) {
 function History(props: {arr: Array<string>}) {
     return (
         <div className='historyDiv'>
-            <AnimationHandler elId='historyH1' ><h1>{props.arr[7]}</h1></AnimationHandler>
-            <AnimationHandler elId='historyH21' ><h2>{props.arr[8]}</h2></AnimationHandler>
-            <AnimationHandler elId='historyP1' ><p>{props.arr[9]}</p></AnimationHandler>
-            <AnimationHandler elId='historyH22' ><h2>{props.arr[10]}</h2></AnimationHandler>
-            <AnimationHandler elId='historyP2' ><p>{props.arr[11]}</p></AnimationHandler>
-            <AnimationHandler elId='historyH23' ><h2>{props.arr[12]}</h2></AnimationHandler>
-            <AnimationHandler elId='historyP3' ><p>{props.arr[13]}</p></AnimationHandler>
-            <AnimationHandler elId='historyH34' ><h3>{props.arr[14]}</h3></AnimationHandler>
-            <AnimationHandler elId='historyP4' ><p>{props.arr[15]}</p></AnimationHandler>
+            <div id='historyH1' ><h1>{props.arr[7]}</h1></div>
+            <div id='historyH21' ><h2>{props.arr[8]}</h2></div>
+            <div id='historyP1' ><p>{props.arr[9]}</p></div>
+            <div id='historyH22' ><h2>{props.arr[10]}</h2></div>
+            <div id='historyP2' ><p>{props.arr[11]}</p></div>
+            <div id='historyH23' ><h2>{props.arr[12]}</h2></div>
+            <div id='historyP3' ><p>{props.arr[13]}</p></div>
+            <div id='historyH34' ><h3>{props.arr[14]}</h3></div>
+            <div id='historyP4' ><p>{props.arr[15]}</p></div>
         </div>
     )
 }

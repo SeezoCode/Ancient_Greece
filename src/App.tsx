@@ -1,18 +1,34 @@
-import React from 'react';
+import React, {lazy, Suspense} from 'react';
 import './App.css';
 import firebase from "firebase/app";
+import "firebase/analytics";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
 } from "react-router-dom";
 import {PhilosophyCardView} from './philosophy/philosophy_detail'
 import {PhilosophyCards} from './philosophy/philosophy'
 import {LandingPage} from './landing_page/landing_page'
+import {Map} from './map/map'
 
 import firebaseConfig from "./fireconfig";
 import {HistoryTab} from "./history/history";
+import Loading from "./loading/Loading";
+
+// @ts-ignore
+const Map3D = lazy(() => import('./map/bonus/map3D'))
+
+const renderLoader = () => <div>
+        <h1 className='PhilosophyText navbarLinks' id='historyTabMargin'> </h1>
+        <Loading />
+    </div>;
+const DetailsComponent = () => (
+    <Suspense fallback={renderLoader()}>
+        <Map3D />
+    </Suspense>
+)
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
@@ -21,20 +37,21 @@ if (!firebase.apps.length) {
   firebase.app()
 }
 
-
-
+const anal = firebase.analytics()
 
 
 function App() {
     const [language, setLanguage] = React.useState('en')
+    anal.logEvent(window.location.pathname)
     return (
         <div>
             <Router>
                 <NavBar language={language} setLanguage={setLanguage} />
                 <Switch>
-                    <Route path="/ancient_greece" children={<LandingPage language={language} />} />
+                    <Route exact path="/" children={<LandingPage language={language} />} />
                     <Route path="/history" children={<HistoryTab language={language} />} />
-                    {/*<Route path="/politics_and_society" children={<GetComments />} />*/}
+                    <Route exact path="/map" children={<Map language={language} />} />
+                    <Route path="/map/3D" children={<DetailsComponent />} />
                     <Route exact path="/philosophy" children={<PhilosophyCards coll='people' language={language} />} />
                     <Route path="/philosophy/:philosopher" children={<PhilosophyCardView  language={language} />} />
                 </Switch>
@@ -44,20 +61,14 @@ function App() {
 }
 
 
-
-
-
-
-
-
 function NavBar(props: { language: string; setLanguage: any}) {
     const languages = ['en', 'cs', 'de', 'sk', 'pl', 'zh', 'fr', 'el', 'ru', 'es', 'ko']
     return (
         <div className='NavBar'>
             <div className='navbarLinks'>
-                <Link className='navbarLink' to="/ancient_greece">Ancient Greece</Link>
+                <Link className='navbarLink' to="/">Ancient Greece</Link>
                 <Link className='navbarLink' to="/history">History</Link>
-                <Link className='navbarLink' to="/politics_and_society">Politics and Society</Link>
+                <Link className='navbarLink' to="/map">Map</Link>
                 <Link className='navbarLink' to="/philosophy">Philosophy</Link>
 
                 <form id='czechButton'>
@@ -72,9 +83,6 @@ function NavBar(props: { language: string; setLanguage: any}) {
         </div>
     )
 }
-
-
-
 
 
 export default App;

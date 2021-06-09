@@ -7,6 +7,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@svg-maps/greece": "^1.0.1",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
@@ -22,7 +23,9 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-svg-map": "^2.2.0",
     "serve": "^11.3.2",
+    "three": "^0.129.0",
     "typescript": "^4.2.4",
     "web-vitals": "^1.1.1"
   },
@@ -51,6 +54,8 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.7"
+    "@types/react-router-dom": "^5.1.7",
+    "@types/react-svg-map": "^2.1.0",
+    "@types/three": "^0.129.1"
   }
 }

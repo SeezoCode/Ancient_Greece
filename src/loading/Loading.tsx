@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function Loading() {
+export default function Loading(props: any) {
     return (
         <div className='loading'>
-            <p>Loading</p>
+            <p>Loading{props.text ? props.text : ''}</p>
         </div>
     )
 }

@@ -21,15 +21,16 @@ export function PhilosophyCardView(props: {language: string}) {
         <div className='navbarLinks philosophyCardSingleDiv'>
             <h1 className='PhilosophyText navbarLinks'> </h1>
             <Link to={'/philosophy'} className='navbarLinks' style={{color: 'black'}} > <br />
-                <FontAwesomeIcon icon={faChevronCircleLeft} /> Back</Link>
+                <FontAwesomeIcon icon={faChevronCircleLeft} className='navbarLink' /> Back</Link>
             {error && <strong>Error: {JSON.stringify(error)}</strong>}
             {loading && <Loading />}
-            {data && <PhilosophyCard resize={false} img={data.img}
+            {data && <PhilosophyCard resize={false}
+                                     img={data.img}
                                      name={data.nameTrans[props.language] === data.name ? data.name : (data.nameTrans[props.language] + ' (' + data.name + ')') ?? data.name}
                                      description={data.allTrans[props.language] ?? data.description}
                                      reputation={data.reputation}
                                      pos={0}
-                                        id={value?.id}/>}
+                                     id={value?.id}/>}
             <hr style={{marginTop: '40px'}}/>
             <PhilosophyCards coll={`people/${pathName}/details`} language={props.language} />
         </div>

@@ -60,6 +60,7 @@ export function PhilosophyCards(props: { coll: string; language: string }) {
             {snapshot && <div className='philosophyCardsLoaded'>
                 {sorted}
             </div>}
+            <div className="marginBottomDiv"> </div>
         </div>
     )
 }
@@ -97,7 +98,7 @@ export function PhilosophyCard(props: { pos: number; resize: any; img: string; n
         <div style={s} className='philosophyCard' onClick={() => {
             if (props.resize) history.push(`/philosophy/${props.id}`)}
         } >
-            <img alt='' id={props.pos.toString()} src={props.img} className="philosophyImg"/>
+            <img alt='' id={props.pos.toString()} src={'/' + props.img} className="philosophyImg"/>
             {/*// @ts-ignore*/}
             <div id={props.pos + 'div'} className="philosophyCardText" style={{height: state}}>
                 {props.resize &&
@@ -131,5 +132,5 @@ function updateVote(id: string, targetRep: number, collection: string = 'people'
     // console.log(id, targetRep, collection)
     firebase.firestore().collection(collection).doc(id).update({
         reputation: targetRep
-    }).then(() => console.log('done'))
+    }).then(() => {})
 }

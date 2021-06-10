@@ -16,6 +16,7 @@ import {Map} from './map/map'
 import firebaseConfig from "./fireconfig";
 import {HistoryTab} from "./history/history";
 import Loading from "./loading/Loading";
+import {Extras, WarsOfAges} from "./extras/extras";
 
 // @ts-ignore
 const Map3D = lazy(() => import('./map/bonus/map3D'))
@@ -54,6 +55,8 @@ function App() {
                     <Route path="/map/3D" children={<DetailsComponent />} />
                     <Route exact path="/philosophy" children={<PhilosophyCards coll='people' language={language} />} />
                     <Route path="/philosophy/:philosopher" children={<PhilosophyCardView  language={language} />} />
+                    <Route exact path="/extras" children={<Extras />} />
+                    <Route exact path="/extras/wars_of_ages" children={<WarsOfAges />} />
                 </Switch>
             </Router>
         </div>
@@ -70,6 +73,7 @@ function NavBar(props: { language: string; setLanguage: any}) {
                 <Link className='navbarLink' to="/history">History</Link>
                 <Link className='navbarLink' to="/map">Map</Link>
                 <Link className='navbarLink' to="/philosophy">Philosophy</Link>
+                <Link className='navbarLink' to="/extras">Extras</Link>
 
                 <form id='czechButton'>
                     <label>Language: </label>

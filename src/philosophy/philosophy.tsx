@@ -65,7 +65,7 @@ export function PhilosophyCards(props: { coll: string; language: string }) {
     )
 }
 
-export function PhilosophyCard(props: { pos: number; resize: any; img: string; name: string; reputation: number; description: string[]; id?: string; col?: string }) {
+export function PhilosophyCard(props: { pos: number; resize: any; img: string; name: string; reputation?: number; description: string[]; id?: string; col?: string }) {
     const history = useHistory();
     const [state, setState] = useState('auto');
     const [display, setDisplay] = useState('hidden');
@@ -104,20 +104,26 @@ export function PhilosophyCard(props: { pos: number; resize: any; img: string; n
                 {props.resize &&
                 <FontAwesomeIcon className='faExternalLinkAlt' icon={faExternalLinkAlt} /> }
                 <h3 className='philosophyCardName'>{props.name}</h3>
+                {props.reputation &&
                 <span>Favor: {props.reputation}
                     <button className='btn btnUp' onClick={(e) => {
-                        if (votedUp > 0) updateVote(props.id ?? props.name, props.reputation + 1, props.col)
+                        if (votedUp > 0) { // @ts-ignore
+                            updateVote(props.id ?? props.name, props.reputation + 1, props.col)
+                        }
                         else alert(`You're too sweet for ${props.name}. So much so that he would get diabetes`)
                         setVotedUp(votedUp - 1)
                         e.stopPropagation()
-                    }}><FontAwesomeIcon icon={faArrowUp} /></button>
+                    }}><FontAwesomeIcon icon={faArrowUp}/></button>
                     <button className='btn btnDown' onClick={(e) => {
-                        if (votedDown > 0) updateVote(props.id ?? props.name, props.reputation - 1, props.col)
+                        if (votedDown > 0) { // @ts-ignore
+                            updateVote(props.id ?? props.name, props.reputation - 1, props.col)
+                        }
                         else alert(`Too much hate for ${props.name}`)
                         setVotedDown(votedDown - 1)
                         e.stopPropagation()
-                    }}><FontAwesomeIcon icon={faArrowDown} /></button>
+                    }}><FontAwesomeIcon icon={faArrowDown}/></button>
                 </span>
+                }
                 <hr />
                 {props.description.map((e: string, i: number) => {
                     return <p key={i}>{e}</p>

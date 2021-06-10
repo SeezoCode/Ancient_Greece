@@ -1094,3 +1094,17 @@ body {
     }
   }
 }
+
+
+
+
+.extrasWarsOfAges {
+  height: calc(100vh - 30px) !important;
+  overflow: hidden !important;
+  padding-top: 30px;
+}
+
+iframe {
+  height: calc(100vh - 60px) !important;
+  width: 100vw !important;
+}

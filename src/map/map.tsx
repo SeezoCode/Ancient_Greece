@@ -52,7 +52,7 @@ export function Map(props: any) {
                     }} />
                     <div className='mapText'>
                         <p><b>Note:</b> Districts are from today's greece. Before, lands were held by city-states </p>
-                        <p><Link className='navbarLink' to="/map/3D">Bonus Map</Link></p>
+                        <p><Link className='navbarLink' to="/map3D">Bonus Map</Link></p>
                     </div>
                 </div>
                 <div className='mapText mapAnimateIn'>

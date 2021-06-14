@@ -55,7 +55,16 @@ export function LandingElem(props: any) {
     const history = useHistory();
 
     return (
-        <div className="landingElem" onClick={() => {history.push(props.to)}}>
+        <div className="landingElem" onClick={() => {
+            if (props.to.startsWith('https://') || props.to.startsWith('http://')) {
+                const a = document.createElement('a')
+                a.href = props.to
+                a.target = 'blank'
+                a.click()
+            }
+            else history.push(props.to)
+
+        }}>
             <img src={props.img} alt='' className="landingImages" height={props.height ? props.height : 'auto'}/>
             <div className="landingText">
                 <h3>{props.name} {props.to && <FontAwesomeIcon className='faExternalLinkAlt2' icon={faExternalLinkAlt} />}</h3>

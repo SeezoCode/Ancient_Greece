@@ -31,7 +31,7 @@ export default function Map3D() {
         const loader = new GLTFLoader();
         let obj: THREE.Group;
         loader.load(
-            'untitled.glb',
+            '/untitled.glb',
                 (gltf) => {
                 gltf.scene.rotation.y = 0
                 scene.add( gltf.scene );

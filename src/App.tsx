@@ -15,21 +15,21 @@ import {Map} from './map/map'
 
 import firebaseConfig from "./fireconfig";
 import {HistoryTab} from "./history/history";
-import Loading from "./loading/Loading";
-import {Extras, WarsOfAges} from "./extras/extras";
-
-// @ts-ignore
-const Map3D = lazy(() => import('./map/bonus/map3D'))
-
-const renderLoader = () => <div>
-        <h1 className='PhilosophyText navbarLinks' id='historyTabMargin'> </h1>
-        <Loading />
-    </div>;
-const DetailsComponent = () => (
-    <Suspense fallback={renderLoader()}>
-        <Map3D />
-    </Suspense>
-)
+// import Loading from "./loading/Loading";
+// // import {Extras, WarsOfAges} from "./extras/extras";
+//
+// // @ts-ignore
+// const Map3D = lazy(() => import('./map/bonus/map3D'))
+//
+// const renderLoader = () => <div>
+//         <h1 className='PhilosophyText navbarLinks' id='historyTabMargin'> </h1>
+//         <Loading />
+//     </div>;
+// const DetailsComponent = () => (
+//     <Suspense fallback={renderLoader()}>
+//         <Map3D />
+//     </Suspense>
+// )
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
@@ -51,12 +51,12 @@ function App() {
                 <Switch>
                     <Route exact path="/" children={<LandingPage language={language} />} />
                     <Route path="/history" children={<HistoryTab language={language} />} />
-                    <Route exact path="/map" children={<Map language={language} />} />
-                    <Route path="/map/3D" children={<DetailsComponent />} />
+                    <Route path="/map" children={<Map language={language} />} />
+                    {/*<Route path="/map3D" children={<DetailsComponent />} />*/}
                     <Route exact path="/philosophy" children={<PhilosophyCards coll='people' language={language} />} />
                     <Route path="/philosophy/:philosopher" children={<PhilosophyCardView  language={language} />} />
-                    <Route exact path="/extras" children={<Extras />} />
-                    <Route exact path="/extras/wars_of_ages" children={<WarsOfAges />} />
+                    {/*<Route exact path="/extras" children={<Extras />} />*/}
+                    {/*<Route exact path="/extras/wars_of_ages" children={<WarsOfAges />} />*/}
                 </Switch>
             </Router>
         </div>
@@ -73,7 +73,7 @@ function NavBar(props: { language: string; setLanguage: any}) {
                 <Link className='navbarLink' to="/history">History</Link>
                 <Link className='navbarLink' to="/map">Map</Link>
                 <Link className='navbarLink' to="/philosophy">Philosophy</Link>
-                <Link className='navbarLink' to="/extras">Extras</Link>
+                {/*<Link className='navbarLink' to="/extras">Extras</Link>*/}
 
                 <form id='czechButton'>
                     <label>Language: </label>

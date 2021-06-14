@@ -1,5 +1,5 @@
 import React from "react";
-import {useHistory} from "react-router-dom";
+// import {useHistory} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons";
 import {useDocumentOnce} from "react-firebase-hooks/firestore";
@@ -12,14 +12,20 @@ const db = firebase.firestore()
 
 
 export function Extras() {
-    const history = useHistory()
+    // const history = useHistory()
+    const [address, , ] = useDocumentOnce(db.collection('data').doc('WarsOfAges'))
     return (
         <div>
             <h1 className='PhilosophyText navbarLinks'> </h1>
 
-            <div className='philosophyCard' onClick={() => {
-                history.push("/extras/wars_of_ages")}
-            } >
+            <div className='philosophyCard' onClick={async () => {
+                // history.push("/extras/wars_of_ages")}
+                if (address) {
+                    const a = document.createElement('a')
+                    a.href = address.data()?.address
+                    a.click()
+                }
+            }} >
                 <img alt='' src='wars_of_ages.png' className="philosophyImg"/>
                 <div className="philosophyCardText">
                     <FontAwesomeIcon className='faExternalLinkAlt' icon={faExternalLinkAlt} />

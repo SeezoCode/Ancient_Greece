@@ -98,7 +98,6 @@ body {
     margin-left: auto;
     margin-right: auto;
     padding-right: 0;
-
   }
   .landingElem {
     max-width: 400px;
@@ -1000,22 +999,31 @@ body {
   width: 100%;
   height: auto;
   stroke: #bbbbbb;
+  fill: #717171;
   stroke-width: 1;
   stroke-linecap: round;
   stroke-linejoin: round;
   animation: .3s ease 0s 1 opacityTransition;
 }
-.svg-map__location {
+/*path {*/
+/*  transition: .15s;*/
+/*  fill: #717171;*/
+/*  cursor: pointer;*/
+/*}*/
+path:hover {
   transition: .15s;
-  fill: #717171;
+  fill: #393939 !important;
   cursor: pointer;
 }
 .svg-map__location:focus, .svg-map__location:hover {
   fill: #393939;
   outline: 0;
 }
-.svg-map__location[aria-checked=true] {
-  fill: #f4bc44;
+/*.currentlySelected[aria-checked=true] {*/
+/*  fill: #f4bc44;*/
+/*}*/
+circle {
+  fill: #e21818;
 }
 
 .mapPerson {
@@ -1098,13 +1106,13 @@ body {
 
 
 
-.extrasWarsOfAges {
-  height: calc(100vh - 30px) !important;
-  overflow: hidden !important;
-  padding-top: 30px;
-}
+/*.extrasWarsOfAges {*/
+/*  height: calc(100vh - 30px) !important;*/
+/*  overflow: hidden !important;*/
+/*  padding-top: 30px;*/
+/*}*/
 
-iframe {
-  height: calc(100vh - 60px) !important;
-  width: 100vw !important;
-}
+/*iframe {*/
+/*  height: calc(100vh - 60px) !important;*/
+/*  width: 100vw !important;*/
+/*}*/

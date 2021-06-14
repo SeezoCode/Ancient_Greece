@@ -56,7 +56,7 @@ export function LandingElem(props: any) {
 
     return (
         <div className="landingElem" onClick={() => {
-            if (props.to.startsWith('https://') || props.to.startsWith('http://')) {
+            if (props.to && (props.to.startsWith('https://') || props.to.startsWith('http://'))) {
                 const a = document.createElement('a')
                 a.href = props.to
                 a.target = 'blank'
